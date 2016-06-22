@@ -1,2 +1,2 @@
 # MVPCAndroid
-Model-View-Presenter-Clean Architecture
+Model-View-Presenter-Clean Architecture for Android

@@ -1,0 +1,102 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'corp.wmsoft.android.lib.mvpcandroid' // Change this to match your package name
+version = rootProject.ext.versionName // Change this to match your version number
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+}
+
+// BinTray staff
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task generateJavadocsJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+generateJavadocsJar.dependsOn generateJavadocs
+
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
+}
+
+bintray {
+    user = getBinTrayUserName()
+    key = getBinTrayKey()
+    pkg {
+        repo = 'maven'
+        name = rootProject.ext.libraryName // the name of the package in BinTray
+
+        //noinspection GroovyAssignabilityCheck
+        version {
+            name = rootProject.ext.libraryName // the name of your library project
+            desc = rootProject.ext.libraryDesc
+            released  = new Date()
+            vcsTag = rootProject.ext.versionName // the version
+        }
+
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/westman2000/MVPCAndroid.git' // your GitHub repo
+        websiteUrl = 'https://github.com/westman2000/MVPCAndroid' // your website or whatever has documentation
+    }
+    configurations = ['archives']
+}
+
+/**
+ * Read BinTray user name from local.properties
+ * @return BinTray user name
+ */
+def getBinTrayUserName() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def user = properties.getProperty('bintray.user', null)
+    if (user == null)
+        throw new GradleException("BinTray user name not found. Define bintray user name with bintray.user in the local.properties file.")
+
+    return user
+}
+
+/**
+ * Read BinTray user key from local.properties
+ * @return BinTray user key
+ */
+def getBinTrayKey() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def key = properties.getProperty('bintray.key', null)
+    if (key == null)
+        throw new GradleException("BinTray user key not found. Define bintray user key with bintray.key in the local.properties file.")
+
+    return key
+}

@@ -30,10 +30,10 @@ ext {
     minSdkVersion = 11
     targetSdkVersion = 24
     compileSdkVersion = 24
-    buildToolsVersion = '24.0.0'
+    buildToolsVersion = '24.0.1'
 
     // App dependencies
-    supportLibraryVersion = '24.0.0'
+    supportLibraryVersion = '24.1.1'
 
     // Details
     libraryName = 'MVPCAndroid'

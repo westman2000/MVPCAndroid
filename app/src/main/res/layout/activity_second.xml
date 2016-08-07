@@ -2,16 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-        <variable name="presenter" type="corp.wmsoft.android.examples.mvpc.MainContract.Presenter" />
+        <variable name="presenter" type="corp.wmsoft.android.examples.mvpc.second.SecondContract.Presenter" />
     </data>
-
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="corp.wmsoft.android.wmtorrent.MainActivity">
+        tools:context="corp.wmsoft.android.wmtorrent.second.SecondActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -27,10 +25,13 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <include
-            android:id="@+id/main_content"
-            app:presenter="@{presenter}"
-            layout="@layout/content_main"/>
+        <fragment
+            android:id="@+id/test_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:name="corp.wmsoft.android.examples.mvpc.second.fragment.TestFragment"
+            tools:layout="@layout/fragment_test"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -42,5 +43,4 @@
             android:onClick="@{() -> presenter.onFabClick()}"/>
 
     </android.support.design.widget.CoordinatorLayout>
-
 </layout>

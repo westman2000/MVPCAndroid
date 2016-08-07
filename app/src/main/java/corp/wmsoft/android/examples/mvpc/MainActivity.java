@@ -1,59 +1,96 @@
 package corp.wmsoft.android.examples.mvpc;
 
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.widget.TextView;
+import android.view.MenuItem;
 
-import corp.wmsoft.android.lib.mvpcandroid.support.v7.app.MVPCAppCompatActivity;
+import corp.wmsoft.android.examples.mvpc.databinding.ActivityMainBinding;
+import corp.wmsoft.android.examples.mvpc.second.SecondActivity;
+import corp.wmsoft.android.lib.mvpcandroid.base.IPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.base.MVPLoaderBaseAppCompatActivity;
 
 
-public class MainActivity extends MVPCAppCompatActivity<IMainView, IMainPresenter> implements IMainView {
+public class MainActivity extends MVPLoaderBaseAppCompatActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
 
     /**/
-    TextView mTextView;
-    /**/
-    Menu mMenu;
+    private ActivityMainBinding binding;
 
 
-    @NonNull
     @Override
-    protected IMainPresenter providePresenter() {
-        return new MainPresenter();
+    public IPresenterFactory<MainContract.View, MainContract.Presenter> providePresenterFactory() {
+        return new MainPresenterFactory();
+    }
+
+    @Override
+    protected void onInitializePresenter(MainContract.Presenter presenter) {
+        Log.d("life_cycle", "MainActivity.onInitializePresenter");
+        binding.setPresenter(getPresenter());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        mTextView = (TextView) findViewById(android.R.id.text1);
+        Log.d("life_cycle", "MainActivity.onCreate");
 
-        mTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getPresenter().onMessageTap();
-            }
-        });
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        setSupportActionBar(binding.toolbar);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("life_cycle", "MainActivity.onPause");
+        super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        this.mMenu = menu;
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public void showMessage(String message) {
-        mTextView.setText(message);
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Log.d("life_cycle", "MainActivity.onPrepareOptionsMenu");
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
-    public void setTest1Visibility(boolean isVisible) {
-        mMenu.findItem(R.id.action_test1).setVisible(isVisible);
-        mMenu.findItem(R.id.action_test2).setVisible(!isVisible);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onPause() {
+        Log.d("life_cycle", "MainActivity.onPause");
+        super.onPause();
+    }
+
+    @Override
+    public void showFabEvent() {
+        Snackbar.make(binding.fab, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    }
+
+    @Override
+    public void showCounter(String count) {
+        binding.mainContent.counter.setText(count);
+    }
+
+    @Override
+    public void showSecondView() {
+        startActivity(new Intent(this, SecondActivity.class));
+    }
+
 }

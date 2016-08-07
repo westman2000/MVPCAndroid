@@ -1,6 +1,4 @@
-package corp.wmsoft.android.examples.mvpc;
-
-import android.util.Log;
+package corp.wmsoft.android.examples.mvpc.third;
 
 import java.util.Locale;
 
@@ -11,19 +9,18 @@ import corp.wmsoft.android.lib.mvpcandroid.base.BasePresenter;
  * Created by admin on 8/5/16.
  *
  */
-public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
+public class ThirdPresenter extends BasePresenter<ThirdContract.View> implements ThirdContract.Presenter {
 
     /**/
     private int mCounter;
 
-    public MainPresenter() {
-        Log.d("life_cycle", "MainPresenter.MainPresenter");
+
+    public ThirdPresenter() {
         mCounter = 0;
     }
 
     @Override
-    public void attachView(MainContract.View mvpView) {
-        Log.d("life_cycle", "MainPresenter.attachView");
+    public void attachView(ThirdContract.View mvpView) {
         super.attachView(mvpView);
         showCounter();
     }
@@ -34,16 +31,18 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
     @Override
     public void onFabClick() {
         getView().showFabEvent();
+    }
+
+    /**
+     * Called by Data Binding library.
+     */
+    @Override
+    public void onCount() {
         mCounter++;
         showCounter();
     }
-
-    @Override
-    public void onGoToSecondView() {
-        getView().showSecondView();
-    }
-
     private void showCounter() {
         getView().showCounter(String.format(Locale.getDefault(), "Fab pressed : %d times", mCounter));
     }
+
 }

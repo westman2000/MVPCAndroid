@@ -14,6 +14,7 @@ import corp.wmsoft.android.lib.mvpcandroid.view.IBaseView;
 /**
  * An Activity that uses an {@link IBasePresenter} to implement a Model-View-Presenter architecture.
  */
+@Deprecated
 public abstract class MVPCAppCompatActivity<V extends IBaseView, P extends IBasePresenter<V>> extends AppCompatActivity {
 
     /**/

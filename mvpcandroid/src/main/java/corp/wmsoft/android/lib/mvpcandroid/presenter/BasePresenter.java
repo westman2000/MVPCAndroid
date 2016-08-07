@@ -12,6 +12,7 @@ import corp.wmsoft.android.lib.mvpcandroid.view.IBaseView;
  * attachView() and detachView(). It also handles keeping a reference to the mvpView that
  * can be accessed from the children classes by calling getView().
  */
+@Deprecated
 public abstract class BasePresenter<V extends IBaseView> implements IBasePresenter<V> {
 
     /**/

@@ -16,6 +16,7 @@ import corp.wmsoft.android.lib.mvpcandroid.view.IBaseView;
 /**
  * Fragment that uses an {@link IBasePresenter} to implement a Model-View-Presenter architecture.
  */
+@Deprecated
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public abstract class MVPCFragment<V extends IBaseView, P extends IBasePresenter<V>> extends Fragment {
 

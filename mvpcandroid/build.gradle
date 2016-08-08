@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group = 'corp.wmsoft.android.lib.mvpcandroid' // Change this to match your package name
+group = 'corp.wmsoft.android.lib' // Change this to match your package name
 version = rootProject.ext.versionName // Change this to match your version number
 
 android {
@@ -25,6 +25,7 @@ android {
 
 dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
 }
 
 // BinTray staff
@@ -100,3 +101,6 @@ def getBinTrayKey() {
 
     return key
 }
+
+// HOWTO
+// http://code.tutsplus.com/tutorials/creating-and-publishing-an-android-library--cms-24582

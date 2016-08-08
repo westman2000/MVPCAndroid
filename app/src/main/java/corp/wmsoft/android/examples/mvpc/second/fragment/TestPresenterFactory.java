@@ -1,13 +1,13 @@
 package corp.wmsoft.android.examples.mvpc.second.fragment;
 
 
-import corp.wmsoft.android.lib.mvpcandroid.base.IPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
 
 /**
  * Created by admin on 8/5/16.
  *
  */
-public class TestPresenterFactory implements IPresenterFactory<TestContract.View, TestContract.Presenter> {
+public class TestPresenterFactory implements IMVPCPresenterFactory<TestContract.View, TestContract.Presenter> {
 
     /**/
     private String mPresenterName;

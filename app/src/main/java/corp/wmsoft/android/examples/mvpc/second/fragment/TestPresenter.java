@@ -2,14 +2,14 @@ package corp.wmsoft.android.examples.mvpc.second.fragment;
 
 import java.util.Locale;
 
-import corp.wmsoft.android.lib.mvpcandroid.base.BasePresenter;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.MVPCPresenter;
 
 
 /**
  * Created by admin on 8/5/16.
  *
  */
-public class TestPresenter extends BasePresenter<TestContract.View> implements TestContract.Presenter {
+public class TestPresenter extends MVPCPresenter<TestContract.View> implements TestContract.Presenter {
 
     /**/
     private String mName;

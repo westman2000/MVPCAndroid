@@ -10,15 +10,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import corp.wmsoft.android.examples.mvpc.R;
-import corp.wmsoft.android.lib.mvpcandroid.base.IPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.base.MVPLoaderFrameLayout;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.base.MVPCFrameLayout;
 
 
 /**
  * Created by admin on 8/6/16.
  *
  */
-public class TestFrameLayout extends MVPLoaderFrameLayout<FrameLayoutContract.View, FrameLayoutContract.Presenter> implements FrameLayoutContract.View {
+public class TestFrameLayout extends MVPCFrameLayout<FrameLayoutContract.View, FrameLayoutContract.Presenter> implements FrameLayoutContract.View {
 
     private TextView mTextView;
 
@@ -45,7 +45,7 @@ public class TestFrameLayout extends MVPLoaderFrameLayout<FrameLayoutContract.Vi
     }
 
     @Override
-    protected IPresenterFactory<FrameLayoutContract.View, FrameLayoutContract.Presenter> providePresenterFactory() {
+    protected IMVPCPresenterFactory<FrameLayoutContract.View, FrameLayoutContract.Presenter> providePresenterFactory() {
         return new FrameLayoutPresenterFactory();
     }
 

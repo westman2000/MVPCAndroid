@@ -2,9 +2,9 @@ package corp.wmsoft.android.lib.mvpcandroid.presenter;
 
 import java.lang.ref.WeakReference;
 
-import corp.wmsoft.android.lib.mvpcandroid.exceptions.MvpcViewNotAttachedException;
-import corp.wmsoft.android.lib.mvpcandroid.interactor.UseCaseHandler;
-import corp.wmsoft.android.lib.mvpcandroid.view.IBaseView;
+import corp.wmsoft.android.lib.mvpcandroid.exceptions.MVPCViewNotAttachedException;
+import corp.wmsoft.android.lib.mvpcandroid.interactor.MVPCUseCaseHandler;
+import corp.wmsoft.android.lib.mvpcandroid.view.IMVPCView;
 
 
 /**
@@ -12,20 +12,19 @@ import corp.wmsoft.android.lib.mvpcandroid.view.IBaseView;
  * attachView() and detachView(). It also handles keeping a reference to the mvpView that
  * can be accessed from the children classes by calling getView().
  */
-@Deprecated
-public abstract class BasePresenter<V extends IBaseView> implements IBasePresenter<V> {
+public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresenter<V> {
 
     /**/
     private WeakReference<V> mMvpViewRef;
     /**/
-    private final UseCaseHandler mUseCaseHandler;
+    private final MVPCUseCaseHandler mUseCaseHandler;
 
 
-    public BasePresenter() {
-        this(UseCaseHandler.getInstance());
+    public MVPCPresenter() {
+        this(MVPCUseCaseHandler.getInstance());
     }
 
-    public BasePresenter(UseCaseHandler useCaseHandler) {
+    public MVPCPresenter(MVPCUseCaseHandler useCaseHandler) {
         this.mUseCaseHandler = useCaseHandler;
     }
 
@@ -36,10 +35,12 @@ public abstract class BasePresenter<V extends IBaseView> implements IBasePresent
 
     @Override
     public void detachView() {
-        if (mMvpViewRef != null) {
-            mMvpViewRef.clear();
-            mMvpViewRef = null;
-        }
+        clean();
+    }
+
+    @Override
+    public void onDestroyed() {
+        clean();
     }
 
     /**
@@ -53,7 +54,7 @@ public abstract class BasePresenter<V extends IBaseView> implements IBasePresent
         return mMvpViewRef.get();
     }
 
-    protected UseCaseHandler getUseCaseHandler() {
+    protected MVPCUseCaseHandler getUseCaseHandler() {
         return mUseCaseHandler;
     }
 
@@ -61,12 +62,19 @@ public abstract class BasePresenter<V extends IBaseView> implements IBasePresent
      * Checks if a view is attached to this presenter. You should always call this method before
      * calling {@link #getView()} to get the view instance.
      */
-    protected boolean isViewAttached() {
+    private void checkViewAttached() {
+        if (!isViewAttached()) throw new MVPCViewNotAttachedException();
+    }
+
+    private boolean isViewAttached() {
         return mMvpViewRef != null && mMvpViewRef.get() != null;
     }
 
-    protected void checkViewAttached() {
-        if (!isViewAttached()) throw new MvpcViewNotAttachedException();
+    private void clean() {
+        if (mMvpViewRef != null) {
+            mMvpViewRef.clear();
+            mMvpViewRef = null;
+        }
     }
 
 }

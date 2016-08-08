@@ -9,18 +9,18 @@ import android.view.MenuItem;
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityThirdBinding;
 import corp.wmsoft.android.examples.mvpc.third.pager.ViewPagerFragment;
-import corp.wmsoft.android.lib.mvpcandroid.base.IPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.base.MVPLoaderBaseAppCompatActivity;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.support.v7.app.MVPCAppCompatActivity;
 
 
-public class ThirdActivity extends MVPLoaderBaseAppCompatActivity<ThirdContract.View, ThirdContract.Presenter> implements ThirdContract.View {
+public class ThirdActivity extends MVPCAppCompatActivity<ThirdContract.View, ThirdContract.Presenter> implements ThirdContract.View {
 
     /**/
     private ActivityThirdBinding binding;
 
 
     @Override
-    public IPresenterFactory<ThirdContract.View, ThirdContract.Presenter> providePresenterFactory() {
+    public IMVPCPresenterFactory<ThirdContract.View, ThirdContract.Presenter> providePresenterFactory() {
         return new ThirdPresenterFactory();
     }
 

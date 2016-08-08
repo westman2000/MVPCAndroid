@@ -8,18 +8,18 @@ import android.view.MenuItem;
 
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.databinding.ActivitySecondBinding;
-import corp.wmsoft.android.lib.mvpcandroid.base.IPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.base.MVPLoaderBaseAppCompatActivity;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.support.v7.app.MVPCAppCompatActivity;
 
 
-public class SecondActivity extends MVPLoaderBaseAppCompatActivity<SecondContract.View, SecondContract.Presenter> implements SecondContract.View {
+public class SecondActivity extends MVPCAppCompatActivity<SecondContract.View, SecondContract.Presenter> implements SecondContract.View {
 
     /**/
     private ActivitySecondBinding binding;
 
 
     @Override
-    public IPresenterFactory<SecondContract.View, SecondContract.Presenter> providePresenterFactory() {
+    public IMVPCPresenterFactory<SecondContract.View, SecondContract.Presenter> providePresenterFactory() {
         return new SecondPresenterFactory();
     }
 

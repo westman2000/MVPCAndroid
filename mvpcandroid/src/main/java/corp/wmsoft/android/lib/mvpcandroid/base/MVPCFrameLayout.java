@@ -11,39 +11,44 @@ import android.support.annotation.CallSuper;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import corp.wmsoft.android.lib.mvpcandroid.presenter.IMVPCPresenter;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.loader.MVPCPresenterLoader;
+import corp.wmsoft.android.lib.mvpcandroid.view.IMVPCView;
+
 /**
  * Created by admin on 8/6/16.
  *
  */
-public abstract class MVPLoaderFrameLayout<V extends IBaseView, P extends IBasePresenter<V>> extends FrameLayout implements LoaderManager.LoaderCallbacks<P> {
+public abstract class MVPCFrameLayout<V extends IMVPCView, P extends IMVPCPresenter<V>> extends FrameLayout implements LoaderManager.LoaderCallbacks<P> {
 
     /**/
     private P mPresenter;
 
 
-    public MVPLoaderFrameLayout(Context context) {
+    public MVPCFrameLayout(Context context) {
         super(context);
         ((Activity)context).getLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
     }
 
-    public MVPLoaderFrameLayout(Context context, AttributeSet attrs) {
+    public MVPCFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         ((Activity)context).getLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
     }
 
-    public MVPLoaderFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MVPCFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         ((Activity)context).getLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public MVPLoaderFrameLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public MVPCFrameLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         ((Activity)context).getLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
     }
 
     /**/
-    protected abstract IPresenterFactory<V, P> providePresenterFactory();
+    protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
 
     /**/
     protected abstract void onInitializePresenter(P presenter);
@@ -69,7 +74,7 @@ public abstract class MVPLoaderFrameLayout<V extends IBaseView, P extends IBaseP
 
     @Override
     public Loader<P> onCreateLoader(int i, Bundle bundle) {
-        return new PresenterLoader<>(getContext(), providePresenterFactory());
+        return new MVPCPresenterLoader<>(getContext(), providePresenterFactory());
     }
 
     @Override

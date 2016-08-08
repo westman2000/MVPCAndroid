@@ -2,14 +2,14 @@ package corp.wmsoft.android.examples.mvpc.third;
 
 import java.util.Locale;
 
-import corp.wmsoft.android.lib.mvpcandroid.base.BasePresenter;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.MVPCPresenter;
 
 
 /**
  * Created by admin on 8/5/16.
  *
  */
-public class ThirdPresenter extends BasePresenter<ThirdContract.View> implements ThirdContract.Presenter {
+public class ThirdPresenter extends MVPCPresenter<ThirdContract.View> implements ThirdContract.Presenter {
 
     /**/
     private int mCounter;

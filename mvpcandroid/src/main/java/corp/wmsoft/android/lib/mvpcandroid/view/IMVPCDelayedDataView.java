@@ -4,8 +4,7 @@ package corp.wmsoft.android.lib.mvpcandroid.view;
 /**
  * View which data that need to be prepared/downloaded before show to user
  */
-@Deprecated
-public interface IDelayedDataView<D> extends IErrorView {
+public interface IMVPCDelayedDataView<D> extends IMVPCErrorView {
 
     void showLoading();
 

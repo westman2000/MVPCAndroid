@@ -14,15 +14,15 @@ import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.app.MainApplication;
 import corp.wmsoft.android.examples.mvpc.databinding.FragmentTestBinding;
 import corp.wmsoft.android.examples.mvpc.third.ThirdActivity;
-import corp.wmsoft.android.lib.mvpcandroid.base.IPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.base.MVPLoaderBaseFragment;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.app.MVPCFragment;
 
 
 /**
  * Created by westman on 8/5/16.
  *
  */
-public class TestFragment extends MVPLoaderBaseFragment<TestContract.View, TestContract.Presenter> implements TestContract.View {
+public class TestFragment extends MVPCFragment<TestContract.View, TestContract.Presenter> implements TestContract.View {
 
     /**/
     private static final String ARG_NAME = "name";
@@ -39,7 +39,7 @@ public class TestFragment extends MVPLoaderBaseFragment<TestContract.View, TestC
     }
 
     @Override
-    protected IPresenterFactory<TestContract.View, TestContract.Presenter> providePresenterFactory() {
+    protected IMVPCPresenterFactory<TestContract.View, TestContract.Presenter> providePresenterFactory() {
         return new TestPresenterFactory(getArguments() != null ? getArguments().getString(ARG_NAME) : null);
     }
 

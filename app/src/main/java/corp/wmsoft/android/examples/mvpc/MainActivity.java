@@ -10,18 +10,18 @@ import android.view.MenuItem;
 
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityMainBinding;
 import corp.wmsoft.android.examples.mvpc.second.SecondActivity;
-import corp.wmsoft.android.lib.mvpcandroid.base.IPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.base.MVPLoaderBaseAppCompatActivity;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.support.v7.app.MVPCAppCompatActivity;
 
 
-public class MainActivity extends MVPLoaderBaseAppCompatActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
+public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
 
     /**/
     private ActivityMainBinding binding;
 
 
     @Override
-    public IPresenterFactory<MainContract.View, MainContract.Presenter> providePresenterFactory() {
+    public IMVPCPresenterFactory<MainContract.View, MainContract.Presenter> providePresenterFactory() {
         return new MainPresenterFactory();
     }
 

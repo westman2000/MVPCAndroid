@@ -1,64 +1,92 @@
 package corp.wmsoft.android.lib.mvpcandroid.app;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.os.Build;
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.view.Menu;
 
-import corp.wmsoft.android.lib.mvpcandroid.exceptions.MvpViewNotImplementedException;
-import corp.wmsoft.android.lib.mvpcandroid.presenter.IBasePresenter;
-import corp.wmsoft.android.lib.mvpcandroid.view.IBaseView;
+import corp.wmsoft.android.lib.mvpcandroid.exceptions.MVPCViewNotImplementedException;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.IMVPCPresenter;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.loader.MVPCPresenterLoader;
+import corp.wmsoft.android.lib.mvpcandroid.view.IMVPCView;
 
 
 /**
- * Fragment that uses an {@link IBasePresenter} to implement a Model-View-Presenter architecture.
+ * Created by westman on 8/5/16.
+ *
  */
-@Deprecated
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public abstract class MVPCFragment<V extends IBaseView, P extends IBasePresenter<V>> extends Fragment {
+public abstract class MVPCFragment<V extends IMVPCView, P extends IMVPCPresenter<V>> extends Fragment implements LoaderManager.LoaderCallbacks<P> {
+
+    /**/
+    private static final int LOADER_ID = 666;
 
     /**/
     private P mPresenter;
 
+    // boolean flag to avoid delivering the result twice. Calling initLoader in onActivityCreated makes
+    // onLoadFinished will be called twice during configuration change.
+    // Do not use this because of child fragment(have saved presenter) in viewpager but data binding do not receive onInitializePresenter
+    private boolean isDelivered = false;
+
+
+
+    /**/
+    protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
+
+    /**/
+    protected abstract void onInitializePresenter(P presenter);
+
 
     public MVPCFragment() {
-        if (!(this instanceof IBaseView))
-            throw new MvpViewNotImplementedException();
-    }
-
-    /**
-     *
-     * @return presenter instance
-     */
-    protected abstract @NonNull P providePresenter();
-
-    @CallSuper
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mPresenter = providePresenter();
-        setHasOptionsMenu(true);
+        if (!(this instanceof IMVPCView))
+            throw new MVPCViewNotImplementedException();
     }
 
     @CallSuper
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        //noinspection unchecked
-        mPresenter.attachView((V)this);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+    }
+
+    @CallSuper
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPresenter().attachView((V)this);
     }
 
     @CallSuper
     @Override
     public void onPause() {
+        getPresenter().detachView();
         super.onPause();
-        mPresenter.detachView();
     }
 
-    protected @NonNull P getPresenter() {
+    @Override
+    public Loader<P> onCreateLoader(int i, Bundle bundle) {
+        return new MVPCPresenterLoader<>(getActivity(), providePresenterFactory());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<P> loader, P presenter) {
+//        if (!isDelivered) {
+//            isDelivered = true;
+            this.mPresenter = presenter;
+            onInitializePresenter(presenter);
+//        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<P> loader) {
+        this.mPresenter = null;
+    }
+
+    protected P getPresenter() {
+        if (mPresenter == null)
+            throw new NullPointerException("Please wait before requesting Presenter");
         return mPresenter;
     }
 }

@@ -1,61 +1,84 @@
 package corp.wmsoft.android.lib.mvpcandroid.support.v7.app;
 
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 
-import corp.wmsoft.android.lib.mvpcandroid.exceptions.MvpViewNotImplementedException;
-import corp.wmsoft.android.lib.mvpcandroid.presenter.IBasePresenter;
-import corp.wmsoft.android.lib.mvpcandroid.view.IBaseView;
+import corp.wmsoft.android.lib.mvpcandroid.exceptions.MVPCViewNotImplementedException;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.IMVPCPresenter;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.loader.MVPCPresenterLoader;
+import corp.wmsoft.android.lib.mvpcandroid.view.IMVPCView;
 
 
 /**
- * An Activity that uses an {@link IBasePresenter} to implement a Model-View-Presenter architecture.
+ * Created by admin on 8/5/16.
+ *
  */
-@Deprecated
-public abstract class MVPCAppCompatActivity<V extends IBaseView, P extends IBasePresenter<V>> extends AppCompatActivity {
+public abstract class MVPCAppCompatActivity<V extends IMVPCView, P extends IMVPCPresenter<V>> extends AppCompatActivity implements LoaderManager.LoaderCallbacks<P> {
+
+    /**/
+    private static final int LOADER_ID = 666;
 
     /**/
     private P mPresenter;
 
 
+    /**/
+    protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
+
+    /**/
+    protected abstract void onInitializePresenter(P presenter);
+
+
     public MVPCAppCompatActivity() {
-        if (!(this instanceof IBaseView))
-            throw new MvpViewNotImplementedException();
+        if (!(this instanceof IMVPCView))
+            throw new MVPCViewNotImplementedException();
     }
 
-    /**
-     *
-     * @return presenter instance
-     */
-    protected abstract @NonNull P providePresenter();
-
+    /**/
     @CallSuper
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = providePresenter();
+        getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
-    @CallSuper
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        //noinspection unchecked
-        mPresenter.attachView((V)this);
-        return super.onPrepareOptionsMenu(menu);
+    protected void onPostResume() {
+        getPresenter().attachView((V) this);
+        super.onPostResume();
     }
 
     @CallSuper
     @Override
     protected void onPause() {
         super.onPause();
-        mPresenter.detachView();
+        getPresenter().detachView();
     }
 
-    protected @NonNull P getPresenter() {
+    @Override
+    public Loader<P> onCreateLoader(int i, Bundle bundle) {
+        return new MVPCPresenterLoader<>(this, providePresenterFactory());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<P> loader, P presenter) {
+        this.mPresenter = presenter;
+        onInitializePresenter(presenter);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<P> loader) {
+        this.mPresenter = null;
+    }
+
+    protected P getPresenter() {
+        if (mPresenter == null)
+            throw new NullPointerException("Please wait before requesting Presenter");
         return mPresenter;
     }
-
 }

@@ -4,17 +4,18 @@ import android.util.Log;
 
 import java.util.Locale;
 
-import corp.wmsoft.android.lib.mvpcandroid.base.BasePresenter;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.MVPCPresenter;
 
 
 /**
  * Created by admin on 8/5/16.
  *
  */
-public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
+public class MainPresenter extends MVPCPresenter<MainContract.View> implements MainContract.Presenter {
 
     /**/
     private int mCounter;
+
 
     public MainPresenter() {
         Log.d("life_cycle", "MainPresenter.MainPresenter");

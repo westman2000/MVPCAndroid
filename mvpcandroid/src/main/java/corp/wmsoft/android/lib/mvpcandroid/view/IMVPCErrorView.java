@@ -3,8 +3,7 @@ package corp.wmsoft.android.lib.mvpcandroid.view;
 /**
  * View that can show error messages
  */
-@Deprecated
-public interface IErrorView extends IBaseView {
+public interface IMVPCErrorView extends IMVPCView {
 
     void showError(Error error);
 

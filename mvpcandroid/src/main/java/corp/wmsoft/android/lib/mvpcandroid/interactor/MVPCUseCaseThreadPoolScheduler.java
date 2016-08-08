@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * See also {@link Executors} for a list of factory methods to create common
  * {@link java.util.concurrent.ExecutorService}s for different scenarios.
  */
-public class UseCaseThreadPoolScheduler implements IUseCaseScheduler {
+public class MVPCUseCaseThreadPoolScheduler implements IMVPCUseCaseScheduler {
 
     /**/
     private final Handler mHandler = new Handler();
@@ -29,7 +29,7 @@ public class UseCaseThreadPoolScheduler implements IUseCaseScheduler {
     /**
      *
      */
-    public UseCaseThreadPoolScheduler() {
+    public MVPCUseCaseThreadPoolScheduler() {
         mThreadPoolExecutor = new ThreadPoolExecutor(POOL_SIZE, MAX_POOL_SIZE, TIMEOUT, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
     }
 
@@ -45,7 +45,7 @@ public class UseCaseThreadPoolScheduler implements IUseCaseScheduler {
      *
      */
     @Override
-    public <V extends UseCase.ResponseValue> void notifyResponse(final V response, final UseCase.IUseCaseCallback<V> useCaseCallback) {
+    public <V extends MVPCUseCase.ResponseValue> void notifyResponse(final V response, final MVPCUseCase.IUseCaseCallback<V> useCaseCallback) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -58,7 +58,7 @@ public class UseCaseThreadPoolScheduler implements IUseCaseScheduler {
      *
      */
     @Override
-    public <V extends UseCase.ResponseValue> void onError(final Error error, final UseCase.IUseCaseCallback<V> useCaseCallback) {
+    public <V extends MVPCUseCase.ResponseValue> void onError(final Error error, final MVPCUseCase.IUseCaseCallback<V> useCaseCallback) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {

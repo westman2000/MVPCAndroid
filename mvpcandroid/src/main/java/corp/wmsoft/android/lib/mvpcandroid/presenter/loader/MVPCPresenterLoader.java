@@ -1,20 +1,24 @@
-package corp.wmsoft.android.lib.mvpcandroid.base;
+package corp.wmsoft.android.lib.mvpcandroid.presenter.loader;
 
 import android.content.Context;
 import android.content.Loader;
+
+import corp.wmsoft.android.lib.mvpcandroid.presenter.IMVPCPresenter;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.view.IMVPCView;
 
 
 /**
  * Created by admin on 8/5/16.
  *
  */
-public class PresenterLoader<V extends IBaseView, P extends IBasePresenter<V>> extends Loader<P> {
+public class MVPCPresenterLoader<V extends IMVPCView, P extends IMVPCPresenter<V>> extends Loader<P> {
 
-    private IPresenterFactory<V,P> mPresenterFactory;
+    private IMVPCPresenterFactory<V,P> mPresenterFactory;
     private P                      mPresenter;
 
 
-    public PresenterLoader(Context context, IPresenterFactory<V, P> presenterFactory) {
+    public MVPCPresenterLoader(Context context, IMVPCPresenterFactory<V, P> presenterFactory) {
         super(context);
         mPresenterFactory = presenterFactory;
     }
@@ -43,7 +47,6 @@ public class PresenterLoader<V extends IBaseView, P extends IBasePresenter<V>> e
 
         // Deliver the result
         deliverResult(mPresenter);
-
     }
 
     @Override

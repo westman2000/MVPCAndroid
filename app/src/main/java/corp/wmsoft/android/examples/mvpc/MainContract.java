@@ -1,15 +1,15 @@
 package corp.wmsoft.android.examples.mvpc;
 
 
-import corp.wmsoft.android.lib.mvpcandroid.base.IBasePresenter;
-import corp.wmsoft.android.lib.mvpcandroid.base.IBaseView;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.IMVPCPresenter;
+import corp.wmsoft.android.lib.mvpcandroid.view.IMVPCView;
 
 /**
  * This specifies the contract between the view and the presenter.
  */
 public interface MainContract {
 
-    interface View extends IBaseView {
+    interface View extends IMVPCView {
 
         void showFabEvent();
 
@@ -19,7 +19,7 @@ public interface MainContract {
 
     }
 
-    interface Presenter extends IBasePresenter<View> {
+    interface Presenter extends IMVPCPresenter<View> {
 
         void onFabClick();
 

@@ -1,13 +1,13 @@
 package corp.wmsoft.android.examples.mvpc.third.view;
 
 
-import corp.wmsoft.android.lib.mvpcandroid.base.IPresenterFactory;
+import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
 
 /**
  * Created by admin on 8/5/16.
  *
  */
-public class FrameLayoutPresenterFactory implements IPresenterFactory<FrameLayoutContract.View, FrameLayoutContract.Presenter> {
+public class FrameLayoutPresenterFactory implements IMVPCPresenterFactory<FrameLayoutContract.View, FrameLayoutContract.Presenter> {
 
 
     public FrameLayoutPresenterFactory() {

@@ -35,7 +35,7 @@ public class ThirdActivity extends MVPCAppCompatActivity<ThirdContract.View, Thi
         binding = DataBindingUtil.setContentView(this, R.layout.activity_third);
 
         if (savedInstanceState == null) {
-            getFragmentManager()
+            getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.container, ViewPagerFragment.newInstance())
                     .commit();

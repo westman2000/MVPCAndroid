@@ -1,11 +1,10 @@
-package corp.wmsoft.android.lib.mvpcandroid.support.v7.app;
+package corp.wmsoft.android.lib.mvpcandroid.support.v4.app;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 
 import corp.wmsoft.android.lib.mvpcandroid.exceptions.MVPCViewNotImplementedException;
 import corp.wmsoft.android.lib.mvpcandroid.presenter.IMVPCPresenter;
@@ -15,17 +14,16 @@ import corp.wmsoft.android.lib.mvpcandroid.view.IMVPCView;
 
 
 /**
- * Created by admin on 8/5/16.
+ * Created by westman on 8/5/16.
  *
  */
-public abstract class MVPCAppCompatActivity<V extends IMVPCView, P extends IMVPCPresenter<V>> extends AppCompatActivity  {
+public abstract class MVPCFragment<V extends IMVPCView, P extends IMVPCPresenter<V>> extends Fragment {
 
     /**/
     private static final int LOADER_ID = 666;
 
     /**/
     private P mPresenter;
-
 
     /**/
     protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
@@ -34,25 +32,25 @@ public abstract class MVPCAppCompatActivity<V extends IMVPCView, P extends IMVPC
     protected abstract void onInitializePresenter(P presenter);
 
 
-    public MVPCAppCompatActivity() {
+    public MVPCFragment() {
         if (!(this instanceof IMVPCView))
             throw new MVPCViewNotImplementedException();
     }
 
-    /**/
     @CallSuper
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportLoaderManager().initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<P>() {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<P>() {
 
             @Override
             public Loader<P> onCreateLoader(int i, Bundle bundle) {
-                return new MVPCPresenterLoader<>(MVPCAppCompatActivity.this, providePresenterFactory());
+                return new MVPCPresenterLoader<>(getActivity(), providePresenterFactory());
             }
 
             @Override
             public void onLoadFinished(Loader<P> loader, P presenter) {
+                // Calling initLoader in onActivityCreated makes onLoadFinished will be called twice during configuration change.
                 setPresenter(presenter);
                 onInitializePresenter(presenter);
             }
@@ -67,8 +65,24 @@ public abstract class MVPCAppCompatActivity<V extends IMVPCView, P extends IMVPC
 
     @CallSuper
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
+        if (mPresenter != null)
+            //noinspection unchecked
+            mPresenter.attachView((V) this);
+    }
+
+    /**
+     * There is a important difference in regard to when Presenter will be delivered to Activities
+     * or Fragments. In Activities, after calling super.onStart the Presenter will be ready to use
+     * in every circumstance. However, in Fragments when first created, the Presenter will be
+     * deliver after super.onStart, but on recreation it will be delivered after super.onResume.
+     * So, on Fragments we can just rely that our Presenter will be there after super.onResume.
+     */
+    @CallSuper
+    @Override
+    public void onResume() {
+        super.onResume();
         if (mPresenter != null && !mPresenter.isViewAttached())
             //noinspection unchecked
             mPresenter.attachView((V) this);
@@ -76,8 +90,8 @@ public abstract class MVPCAppCompatActivity<V extends IMVPCView, P extends IMVPC
 
     @CallSuper
     @Override
-    protected void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         if (mPresenter != null && mPresenter.isViewAttached())
             mPresenter.detachView();
     }

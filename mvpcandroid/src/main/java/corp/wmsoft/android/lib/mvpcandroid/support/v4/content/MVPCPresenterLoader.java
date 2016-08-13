@@ -1,7 +1,7 @@
-package corp.wmsoft.android.lib.mvpcandroid.presenter.loader;
+package corp.wmsoft.android.lib.mvpcandroid.support.v4.content;
 
 import android.content.Context;
-import android.content.Loader;
+import android.support.v4.content.Loader;
 
 import corp.wmsoft.android.lib.mvpcandroid.presenter.IMVPCPresenter;
 import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;

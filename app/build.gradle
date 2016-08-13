@@ -39,7 +39,6 @@ dependencies {
 
     // android widgets
     compile "com.android.support:design:${versions.supportLib}"
-    compile "com.android.support:support-v13:${versions.supportLib}"
 
     // A memory leak detection library
     debugCompile "com.squareup.leakcanary:leakcanary-android:${versions.leakcanaryLib}"

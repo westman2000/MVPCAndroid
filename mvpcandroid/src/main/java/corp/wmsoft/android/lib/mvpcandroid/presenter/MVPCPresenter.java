@@ -1,5 +1,7 @@
 package corp.wmsoft.android.lib.mvpcandroid.presenter;
 
+import android.support.annotation.CallSuper;
+
 import java.lang.ref.WeakReference;
 
 import corp.wmsoft.android.lib.mvpcandroid.exceptions.MVPCViewNotAttachedException;
@@ -28,16 +30,25 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
         this.mUseCaseHandler = useCaseHandler;
     }
 
+    @CallSuper
     @Override
     public void attachView(V mvpView) {
         mMvpViewRef = new WeakReference<>(mvpView);
     }
 
+    @CallSuper
+    @Override
+    public boolean isViewAttached() {
+        return mMvpViewRef != null && mMvpViewRef.get() != null;
+    }
+
+    @CallSuper
     @Override
     public void detachView() {
         clean();
     }
 
+    @CallSuper
     @Override
     public void onDestroyed() {
         clean();
@@ -64,10 +75,6 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
      */
     private void checkViewAttached() {
         if (!isViewAttached()) throw new MVPCViewNotAttachedException();
-    }
-
-    private boolean isViewAttached() {
-        return mMvpViewRef != null && mMvpViewRef.get() != null;
     }
 
     private void clean() {

@@ -1,19 +1,19 @@
-package corp.wmsoft.android.lib.mvpcandroid.base;
+package corp.wmsoft.android.lib.mvpcandroid.widget;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.LoaderManager;
 import android.content.Context;
-import android.content.Loader;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import corp.wmsoft.android.lib.mvpcandroid.presenter.IMVPCPresenter;
 import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.presenter.loader.MVPCPresenterLoader;
+import corp.wmsoft.android.lib.mvpcandroid.support.v4.content.MVPCPresenterLoader;
 import corp.wmsoft.android.lib.mvpcandroid.view.IMVPCView;
 
 /**
@@ -28,23 +28,23 @@ public abstract class MVPCFrameLayout<V extends IMVPCView, P extends IMVPCPresen
 
     public MVPCFrameLayout(Context context) {
         super(context);
-        ((Activity)context).getLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
+        ((AppCompatActivity)context).getSupportLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
     }
 
     public MVPCFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        ((Activity)context).getLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
+        ((AppCompatActivity)context).getSupportLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
     }
 
     public MVPCFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        ((Activity)context).getLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
+        ((AppCompatActivity)context).getSupportLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MVPCFrameLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        ((Activity)context).getLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
+        ((AppCompatActivity)context).getSupportLoaderManager().initLoader(provideUniqueIdentifier(), null, this);
     }
 
     /**/
@@ -61,6 +61,7 @@ public abstract class MVPCFrameLayout<V extends IMVPCView, P extends IMVPCPresen
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (mPresenter != null)
+            //noinspection unchecked
             mPresenter.attachView((V) this);
     }
 

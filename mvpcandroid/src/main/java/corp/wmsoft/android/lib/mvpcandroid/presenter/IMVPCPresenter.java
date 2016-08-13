@@ -11,6 +11,8 @@ public interface IMVPCPresenter<V extends IMVPCView> {
 
     void attachView(V view);
 
+    boolean isViewAttached();
+
     void detachView();
 
     void onDestroyed();

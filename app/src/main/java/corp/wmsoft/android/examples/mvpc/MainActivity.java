@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -27,15 +26,12 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
 
     @Override
     protected void onInitializePresenter(MainContract.Presenter presenter) {
-        Log.d("life_cycle", "MainActivity.onInitializePresenter");
         binding.setPresenter(getPresenter());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.d("life_cycle", "MainActivity.onCreate");
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
@@ -44,7 +40,6 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("life_cycle", "MainActivity.onPause");
         super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -53,7 +48,6 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        Log.d("life_cycle", "MainActivity.onPrepareOptionsMenu");
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -74,7 +68,6 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
 
     @Override
     protected void onPause() {
-        Log.d("life_cycle", "MainActivity.onPause");
         super.onPause();
     }
 

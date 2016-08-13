@@ -4,14 +4,13 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.base.MVPCFrameLayout;
+import corp.wmsoft.android.lib.mvpcandroid.widget.MVPCFrameLayout;
 
 
 /**
@@ -69,13 +68,9 @@ public class TestFrameLayout extends MVPCFrameLayout<FrameLayoutContract.View, F
         mTextView = (TextView) rootView.findViewById(R.id.counter);
         Button button = (Button) rootView.findViewById(R.id.buttonCount);
 
-        Log.d("life_cycle", "mTextView="+mTextView);
-        Log.d("life_cycle", "button="+button);
-
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("life_cycle", "onClick("+view+") -- "+getPresenter());
                 getPresenter().onCount();
             }
         });

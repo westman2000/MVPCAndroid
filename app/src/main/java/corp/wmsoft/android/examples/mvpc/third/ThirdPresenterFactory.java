@@ -1,7 +1,7 @@
 package corp.wmsoft.android.examples.mvpc.third;
 
-
 import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+
 
 /**
  * Created by admin on 8/5/16.

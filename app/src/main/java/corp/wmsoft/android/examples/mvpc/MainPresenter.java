@@ -1,7 +1,5 @@
 package corp.wmsoft.android.examples.mvpc;
 
-import android.util.Log;
-
 import java.util.Locale;
 
 import corp.wmsoft.android.lib.mvpcandroid.presenter.MVPCPresenter;
@@ -18,13 +16,11 @@ public class MainPresenter extends MVPCPresenter<MainContract.View> implements M
 
 
     public MainPresenter() {
-        Log.d("life_cycle", "MainPresenter.MainPresenter");
         mCounter = 0;
     }
 
     @Override
     public void attachView(MainContract.View mvpView) {
-        Log.d("life_cycle", "MainPresenter.attachView");
         super.attachView(mvpView);
         showCounter();
     }

@@ -2,18 +2,27 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
+apply from: 'variables.gradle'
+
 group = 'corp.wmsoft.android.lib' // Change this to match your package name
-version = rootProject.ext.versionName // Change this to match your version number
+version = setup.verName // Change this to match your version number
+
+// Define versions in a single place
+ext {
+    // Details
+    libraryName = 'MVPCAndroid'
+    libraryDesc = 'Model-View-Presenter-Clean'
+}
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode setup.verCode
+        versionName setup.verName
     }
     buildTypes {
         release {
@@ -23,9 +32,19 @@ android {
     }
 }
 
+buildscript {
+    dependencies {
+        repositories {
+            jcenter()
+        }
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
+        classpath "com.github.dcendents:android-maven-gradle-plugin:1.3"
+    }
+}
+
 dependencies {
-    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
-    compile "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:${versions.supportLib}"
+    compile "com.android.support:support-annotations:${versions.supportLib}"
 }
 
 // BinTray staff
@@ -57,14 +76,14 @@ bintray {
     key = getBinTrayKey()
     pkg {
         repo = 'maven'
-        name = rootProject.ext.libraryName // the name of the package in BinTray
+        name = libraryName // the name of the package in BinTray
 
         //noinspection GroovyAssignabilityCheck
         version {
-            name = rootProject.ext.libraryName // the name of your library project
-            desc = rootProject.ext.libraryDesc
+            name = libraryName // the name of your library project
+            desc = libraryDesc
             released  = new Date()
-            vcsTag = rootProject.ext.versionName // the version
+            vcsTag = setup.verName // the version
         }
 
         licenses = ['Apache-2.0']

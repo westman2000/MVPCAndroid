@@ -1,16 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 
+apply from: '../mvpcandroid/variables.gradle'
+
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
 
     defaultConfig {
         applicationId "corp.wmsoft.android.examples.mvpc"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode setup.verCode
+        versionName setup.verName
     }
     buildTypes {
         release {
@@ -19,7 +21,16 @@ android {
         }
     }
     dataBinding {
-        enabled = rootProject.ext.isDataBindingEnabled
+        enabled = true
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.5'
     }
 }
 
@@ -27,11 +38,11 @@ dependencies {
     compile project(path: ':mvpcandroid')
 
     // android widgets
-    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
-    compile "com.android.support:support-v13:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:${versions.supportLib}"
+    compile "com.android.support:support-v13:${versions.supportLib}"
 
     // A memory leak detection library
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakcanaryLibraryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanaryLibraryVersion"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanaryLibraryVersion"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${versions.leakcanaryLib}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanaryLib}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanaryLib}"
 }

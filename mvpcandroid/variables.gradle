@@ -12,10 +12,5 @@ buildscript {
         versions = [supportLib   : "24.1.1",
                     leakcanaryLib: "1.4-beta2"]
 
-        // Details
-        libraryName = 'MVPCAndroid'
-        libraryDesc = 'Model-View-Presenter-Clean'
-        versionName = '0.0.3'
-        versionCode = 3
     }
 }

@@ -2,7 +2,7 @@
 Model-View-Presenter-Clean Architecture for Android
 Retain presenters in Loaders
 
-# Interation
+# Integration
 
 On JCenter: 
 

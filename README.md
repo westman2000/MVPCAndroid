@@ -8,7 +8,7 @@ On JCenter:
 
 **build.gradle** 
 ```gradle
-compile 'corp.wmsoft.android.lib:mvpcandroid:0.0.4'
+compile 'corp.wmsoft.android.lib:mvpcandroid:+'
 ```
 
 Or like library project: 

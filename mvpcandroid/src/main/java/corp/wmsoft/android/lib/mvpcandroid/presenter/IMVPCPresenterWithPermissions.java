@@ -11,8 +11,10 @@ public interface IMVPCPresenterWithPermissions<V extends IMVPCView> extends IMVP
 
     void onRequestNecessaryPermissions();
 
+    // will be called before onResume()
     void onNecessaryPermissionsGranted();
 
+    // will be called before onResume
     void onNecessaryPermissionsNotGranted();
 
     void onShowRequestPermissionRationale();

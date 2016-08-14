@@ -6,8 +6,8 @@ buildscript {
                  buildTools: "24.0.1",
                  minSdk    : 8,
                  targetSdk : 24,
-                 verName   : "0.0.5",
-                 verCode   : 5]
+                 verName   : "0.0.6",
+                 verCode   : 6]
 
         versions = [supportLib   : "24.1.1",
                     leakcanaryLib: "1.4-beta2"]

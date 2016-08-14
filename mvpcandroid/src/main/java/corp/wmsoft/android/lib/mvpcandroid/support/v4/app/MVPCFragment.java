@@ -90,8 +90,8 @@ public abstract class MVPCFragment<V extends IMVPCView, P extends IMVPCPresenter
 
     @CallSuper
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         if (mPresenter != null && mPresenter.isViewAttached())
             mPresenter.detachView();
     }

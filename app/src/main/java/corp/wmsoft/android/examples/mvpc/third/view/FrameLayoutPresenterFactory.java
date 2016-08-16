@@ -1,6 +1,6 @@
 package corp.wmsoft.android.examples.mvpc.third.view;
 
-import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
 /**

@@ -1,6 +1,6 @@
 package corp.wmsoft.android.examples.mvpc.second;
 
-import corp.wmsoft.android.lib.mvpcandroid.presenter.MVPCPresenter;
+import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
 
 
 /**

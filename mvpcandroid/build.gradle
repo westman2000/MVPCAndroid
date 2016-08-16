@@ -45,6 +45,7 @@ buildscript {
 dependencies {
     compile "com.android.support:appcompat-v7:${versions.supportLib}"
     compile "com.android.support:support-annotations:${versions.supportLib}"
+    compile "com.android.support:cardview-v7:${versions.supportLib}"
 }
 
 // BinTray staff

@@ -14,8 +14,8 @@ import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.app.MainApplication;
 import corp.wmsoft.android.examples.mvpc.databinding.FragmentTestBinding;
 import corp.wmsoft.android.examples.mvpc.third.ThirdActivity;
-import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.support.v4.app.MVPCFragment;
+import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpc.support.v4.app.MVPCFragment;
 
 
 /**

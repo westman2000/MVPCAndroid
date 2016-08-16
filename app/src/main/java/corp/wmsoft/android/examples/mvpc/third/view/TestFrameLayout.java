@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import corp.wmsoft.android.examples.mvpc.R;
-import corp.wmsoft.android.lib.mvpcandroid.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpcandroid.widget.MVPCFrameLayout;
+import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpc.widget.MVPCFrameLayout;
 
 
 /**

@@ -2,7 +2,7 @@ package corp.wmsoft.android.examples.mvpc.second.fragment;
 
 import java.util.Locale;
 
-import corp.wmsoft.android.lib.mvpcandroid.presenter.MVPCPresenter;
+import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
 
 
 /**

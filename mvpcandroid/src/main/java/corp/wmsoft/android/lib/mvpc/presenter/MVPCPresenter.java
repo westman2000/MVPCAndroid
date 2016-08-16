@@ -4,6 +4,7 @@ import android.support.annotation.CallSuper;
 
 import java.lang.ref.WeakReference;
 
+import corp.wmsoft.android.lib.mvpc.exceptions.MVPCUseCaseHandlerNotSetException;
 import corp.wmsoft.android.lib.mvpc.exceptions.MVPCViewNotAttachedException;
 import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCaseHandler;
 import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
@@ -11,19 +12,19 @@ import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
- * attachView() and detachView(). It also handles keeping a reference to the mvpView that
- * can be accessed from the children classes by calling getView().
+ * attachView() and detachView().<br/>
+ * It also handles keeping a reference to the mvpView that can be accessed from the children classes by calling getView().
+ * It also handles keeping a reference to the useCaseHandler that can be accessed from the children classes by calling getUseCaseHandler().
  */
 public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresenter<V> {
 
     /**/
     private WeakReference<V> mMvpViewRef;
     /**/
-    private final MVPCUseCaseHandler mUseCaseHandler;
+    private MVPCUseCaseHandler mUseCaseHandler;
 
 
     public MVPCPresenter() {
-        this(MVPCUseCaseHandler.getInstance());
     }
 
     public MVPCPresenter(MVPCUseCaseHandler useCaseHandler) {
@@ -66,6 +67,7 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     }
 
     protected MVPCUseCaseHandler getUseCaseHandler() {
+        if (mUseCaseHandler == null) throw new MVPCUseCaseHandlerNotSetException();
         return mUseCaseHandler;
     }
 

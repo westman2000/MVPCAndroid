@@ -77,6 +77,11 @@ public class MVPCDelegate<V extends IMVPCView, P extends IMVPCPresenter<V>> impl
         onDestroy();
     }
 
+    /**
+     *
+     * @param view view that implements {@link IMVPCView}
+     * @param callback {@link IMVPCDelegate.ICallback} if you want to receive callbacks of presenter lifecycle. must be set again after {@link MVPCDelegate#onDetachView()}
+     */
     @Override
     public void onAttachView(V view, ICallback<V, P> callback) {
         if (mPresenter != null && !mPresenter.isViewAttached())

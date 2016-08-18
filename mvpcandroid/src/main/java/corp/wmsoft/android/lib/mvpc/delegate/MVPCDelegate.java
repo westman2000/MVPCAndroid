@@ -106,7 +106,6 @@ public class MVPCDelegate<V extends IMVPCView, P extends IMVPCPresenter<V>> impl
             mCallback.onDestroyPresenter();
         detachViewIfNeeded();
         setPresenter(null);
-        clean();
     }
 
     private void detachViewIfNeeded() {

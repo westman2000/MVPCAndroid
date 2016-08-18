@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
+import corp.wmsoft.android.lib.mvpc.delegate.MVPCDelegate;
 import corp.wmsoft.android.lib.mvpc.exceptions.MVPCViewNotImplementedException;
 import corp.wmsoft.android.lib.mvpc.presenter.IMVPCPresenter;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
@@ -17,8 +18,9 @@ import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
 
 /**
  * Created by admin on 8/6/16.
- *
+ * @deprecated will redesign with {@link MVPCDelegate}
  */
+@Deprecated
 public abstract class MVPCCardView<V extends IMVPCView, P extends IMVPCPresenter<V>> extends CardView {
 
     /**/

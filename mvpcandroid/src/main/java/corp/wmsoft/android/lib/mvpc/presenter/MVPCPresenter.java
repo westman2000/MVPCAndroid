@@ -1,6 +1,7 @@
 package corp.wmsoft.android.lib.mvpc.presenter;
 
 import android.support.annotation.CallSuper;
+import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
@@ -66,6 +67,7 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
         return mMvpViewRef.get();
     }
 
+    @Nullable
     protected MVPCUseCaseHandler getUseCaseHandler() {
         if (mUseCaseHandler == null) throw new MVPCUseCaseHandlerNotSetException();
         return mUseCaseHandler;

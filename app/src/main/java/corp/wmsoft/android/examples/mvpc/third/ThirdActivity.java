@@ -6,14 +6,14 @@ import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import corp.wmsoft.android.examples.mvpc.AbstractCompatActivity;
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityThirdBinding;
 import corp.wmsoft.android.examples.mvpc.third.pager.ViewPagerFragment;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpc.support.v7.app.MVPCAppCompatActivity;
 
 
-public class ThirdActivity extends MVPCAppCompatActivity<ThirdContract.View, ThirdContract.Presenter> implements ThirdContract.View {
+public class ThirdActivity extends AbstractCompatActivity<ThirdContract.View, ThirdContract.Presenter> implements ThirdContract.View {
 
     /**/
     private ActivityThirdBinding binding;
@@ -25,7 +25,7 @@ public class ThirdActivity extends MVPCAppCompatActivity<ThirdContract.View, Thi
     }
 
     @Override
-    protected void onInitializePresenter(ThirdContract.Presenter presenter) {
+    public void onInitializePresenter(ThirdContract.Presenter presenter) {
         binding.setPresenter(getPresenter());
     }
 

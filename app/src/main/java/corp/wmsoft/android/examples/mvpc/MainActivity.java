@@ -10,10 +10,9 @@ import android.view.MenuItem;
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityMainBinding;
 import corp.wmsoft.android.examples.mvpc.second.SecondActivity;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpc.support.v7.app.MVPCAppCompatActivity;
 
 
-public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
+public class MainActivity extends AbstractCompatActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
 
     /**/
     private ActivityMainBinding binding;
@@ -25,7 +24,7 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
     }
 
     @Override
-    protected void onInitializePresenter(MainContract.Presenter presenter) {
+    public void onInitializePresenter(MainContract.Presenter presenter) {
         binding.setPresenter(getPresenter());
     }
 

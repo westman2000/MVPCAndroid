@@ -15,7 +15,7 @@ import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
 public class MVPCPresenterLoader<V extends IMVPCView, P extends IMVPCPresenter<V>> extends Loader<P> {
 
     private IMVPCPresenterFactory<V,P> mPresenterFactory;
-    private P                      mPresenter;
+    private P                          mPresenter;
 
 
     public MVPCPresenterLoader(Context context, IMVPCPresenterFactory<V, P> presenterFactory) {

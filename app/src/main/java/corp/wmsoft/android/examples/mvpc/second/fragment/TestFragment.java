@@ -10,19 +10,19 @@ import android.view.ViewGroup;
 
 import com.squareup.leakcanary.RefWatcher;
 
+import corp.wmsoft.android.examples.mvpc.AbstractFragment;
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.app.MainApplication;
 import corp.wmsoft.android.examples.mvpc.databinding.FragmentTestBinding;
 import corp.wmsoft.android.examples.mvpc.third.ThirdActivity;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpc.support.v4.app.MVPCFragment;
 
 
 /**
  * Created by westman on 8/5/16.
  *
  */
-public class TestFragment extends MVPCFragment<TestContract.View, TestContract.Presenter> implements TestContract.View {
+public class TestFragment extends AbstractFragment<TestContract.View, TestContract.Presenter> implements TestContract.View {
 
     /**/
     private static final String ARG_NAME = "name";
@@ -44,7 +44,7 @@ public class TestFragment extends MVPCFragment<TestContract.View, TestContract.P
     }
 
     @Override
-    protected void onInitializePresenter(TestContract.Presenter presenter) {
+    public void onInitializePresenter(TestContract.Presenter presenter) {
         binding.setPresenter(getPresenter());
     }
 
@@ -55,7 +55,8 @@ public class TestFragment extends MVPCFragment<TestContract.View, TestContract.P
         return binding.getRoot();
     }
 
-    @Override public void onDestroy() {
+    @Override
+    public void onDestroy() {
         super.onDestroy();
         RefWatcher refWatcher = MainApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);

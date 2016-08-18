@@ -6,6 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
+import corp.wmsoft.android.lib.mvpc.delegate.MVPCDelegate;
 import corp.wmsoft.android.lib.mvpc.exceptions.MVPCViewNotImplementedException;
 import corp.wmsoft.android.lib.mvpc.presenter.IMVPCPresenter;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
@@ -15,8 +16,9 @@ import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
 
 /**
  * Created by westman on 8/8/16 at 10:15 AM
- *
+ * @deprecated will redesign with {@link MVPCDelegate}
  */
+@Deprecated
 public abstract class MVPCDialogFragment<V extends IMVPCView, P extends IMVPCPresenter<V>> extends DialogFragment {
 
     /**/

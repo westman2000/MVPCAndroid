@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
+import corp.wmsoft.android.lib.mvpc.delegate.MVPCDelegate;
 import corp.wmsoft.android.lib.mvpc.exceptions.MVPCViewNotImplementedException;
 import corp.wmsoft.android.lib.mvpc.presenter.IMVPCPresenter;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
@@ -15,8 +16,9 @@ import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
 
 /**
  * Created by westman on 8/5/16.
- *
+ * @deprecated will redesign with {@link MVPCDelegate}
  */
+@Deprecated
 public abstract class MVPCFragment<V extends IMVPCView, P extends IMVPCPresenter<V>> extends Fragment {
 
     /**/
@@ -50,7 +52,7 @@ public abstract class MVPCFragment<V extends IMVPCView, P extends IMVPCPresenter
 
             @Override
             public void onLoadFinished(Loader<P> loader, P presenter) {
-                // Calling initLoader in onActivityCreated makes onLoadFinished will be called twice during configuration change.
+                // Calling initLoader in onActivityCreated makes onLoadFinished will be called twice during configuration change, or not??? fixed???
                 setPresenter(presenter);
                 onInitializePresenter(presenter);
             }

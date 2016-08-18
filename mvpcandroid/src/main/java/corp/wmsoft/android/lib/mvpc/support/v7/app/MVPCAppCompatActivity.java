@@ -7,6 +7,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 
+import corp.wmsoft.android.lib.mvpc.delegate.MVPCDelegate;
 import corp.wmsoft.android.lib.mvpc.exceptions.MVPCViewNotImplementedException;
 import corp.wmsoft.android.lib.mvpc.presenter.IMVPCPresenter;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
@@ -16,8 +17,9 @@ import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
 
 /**
  * Created by admin on 8/5/16.
- *
+ * @deprecated will redesign with {@link MVPCDelegate}
  */
+@Deprecated
 public abstract class MVPCAppCompatActivity<V extends IMVPCView, P extends IMVPCPresenter<V>> extends AppCompatActivity  {
 
     /**/

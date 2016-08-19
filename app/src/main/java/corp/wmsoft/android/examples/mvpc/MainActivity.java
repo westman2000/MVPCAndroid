@@ -9,10 +9,11 @@ import android.view.MenuItem;
 
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityMainBinding;
 import corp.wmsoft.android.examples.mvpc.second.SecondActivity;
+import corp.wmsoft.android.lib.mvpc.predefined.MVPCAppCompatActivity;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
-public class MainActivity extends AbstractCompatActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
+public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
 
     /**/
     private ActivityMainBinding binding;

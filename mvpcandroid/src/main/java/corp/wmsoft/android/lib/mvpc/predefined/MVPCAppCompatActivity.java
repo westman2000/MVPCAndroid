@@ -1,4 +1,4 @@
-package corp.wmsoft.android.examples.mvpc;
+package corp.wmsoft.android.lib.mvpc.predefined;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -17,10 +17,10 @@ import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
  * Created by admin on 8/5/16.
  *
  */
-public abstract class AbstractCompatActivity<V extends IMVPCView, P extends IMVPCPresenter<V>> extends AppCompatActivity implements IMVPCDelegate.ICallback<V, P> {
+public abstract class MVPCAppCompatActivity<V extends IMVPCView, P extends IMVPCPresenter<V>> extends AppCompatActivity implements IMVPCDelegate.ICallback<V, P> {
 
     /**/
-    private static final int LOADER_ID = 666;
+    private static final int UNIQUE_IDENTIFIER = 31415;
 
     /**/
     private MVPCDelegate<V, P> mMvpcDelegate;
@@ -29,7 +29,7 @@ public abstract class AbstractCompatActivity<V extends IMVPCView, P extends IMVP
     protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
 
 
-    public AbstractCompatActivity() {
+    public MVPCAppCompatActivity() {
         if (!(this instanceof IMVPCView))
             throw new MVPCViewNotImplementedException();
     }
@@ -39,7 +39,7 @@ public abstract class AbstractCompatActivity<V extends IMVPCView, P extends IMVP
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getMvpсDelegate().onCreate(this, getSupportLoaderManager(), providePresenterFactory(), LOADER_ID, this);
+        getMvpсDelegate().onCreate(this, getSupportLoaderManager(), providePresenterFactory(), UNIQUE_IDENTIFIER, this);
     }
 
     @CallSuper
@@ -67,14 +67,14 @@ public abstract class AbstractCompatActivity<V extends IMVPCView, P extends IMVP
         // hook for subclasses
     }
 
-    public P getPresenter() {
+    protected P getPresenter() {
         return getMvpсDelegate().getPresenter();
     }
 
     /**
      * @return The {@link MVPCDelegate} being used by this Activity.
      */
-    public MVPCDelegate<V,P> getMvpсDelegate() {
+    private MVPCDelegate<V,P> getMvpсDelegate() {
         if (mMvpcDelegate == null) {
             mMvpcDelegate = new MVPCDelegate<>();
         }

@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 
 import com.squareup.leakcanary.RefWatcher;
 
-import corp.wmsoft.android.examples.mvpc.AbstractFragment;
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.app.MainApplication;
 import corp.wmsoft.android.examples.mvpc.databinding.FragmentTestBinding;
 import corp.wmsoft.android.examples.mvpc.third.ThirdActivity;
+import corp.wmsoft.android.lib.mvpc.predefined.MVPCSupportFragment;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
@@ -22,7 +22,7 @@ import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
  * Created by westman on 8/5/16.
  *
  */
-public class TestFragment extends AbstractFragment<TestContract.View, TestContract.Presenter> implements TestContract.View {
+public class TestFragment extends MVPCSupportFragment<TestContract.View, TestContract.Presenter> implements TestContract.View {
 
     /**/
     private static final String ARG_NAME = "name";

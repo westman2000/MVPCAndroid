@@ -6,13 +6,13 @@ import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import corp.wmsoft.android.examples.mvpc.AbstractCompatActivity;
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.databinding.ActivitySecondBinding;
+import corp.wmsoft.android.lib.mvpc.predefined.MVPCAppCompatActivity;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
-public class SecondActivity extends AbstractCompatActivity<SecondContract.View, SecondContract.Presenter> implements SecondContract.View {
+public class SecondActivity extends MVPCAppCompatActivity<SecondContract.View, SecondContract.Presenter> implements SecondContract.View {
 
     /**/
     private ActivitySecondBinding binding;

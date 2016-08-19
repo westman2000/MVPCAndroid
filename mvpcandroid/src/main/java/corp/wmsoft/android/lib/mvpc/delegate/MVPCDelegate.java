@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference;
 
 import corp.wmsoft.android.lib.mvpc.presenter.IMVPCPresenter;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpc.support.v4.content.MVPCPresenterLoader;
+import corp.wmsoft.android.lib.mvpc.presenter.loader.MVPCPresenterLoader;
 import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
 
 

@@ -2,7 +2,7 @@ package corp.wmsoft.android.lib.mvpc.predefined;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.DialogFragment;
 
 import corp.wmsoft.android.lib.mvpc.delegate.IMVPCDelegate;
 import corp.wmsoft.android.lib.mvpc.delegate.MVPCDelegate;
@@ -16,10 +16,10 @@ import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
  * Created by westman on 8/5/16.
  *
  */
-public abstract class MVPCSupportFragment<V extends IMVPCView, P extends IMVPCPresenter<V>> extends Fragment implements IMVPCDelegate.ICallback<V, P> {
+public abstract class MVPCSupportDialogFragment<V extends IMVPCView, P extends IMVPCPresenter<V>> extends DialogFragment implements IMVPCDelegate.ICallback<V, P> {
 
     /**/
-    private static final int UNIQUE_IDENTIFIER = 92653;
+    private static final int UNIQUE_IDENTIFIER = 58979;
 
     /**/
     private MVPCDelegate<V, P> mMvpcDelegate;
@@ -27,7 +27,7 @@ public abstract class MVPCSupportFragment<V extends IMVPCView, P extends IMVPCPr
     /**/
     protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
 
-    public MVPCSupportFragment() {
+    public MVPCSupportDialogFragment() {
         if (!(this instanceof IMVPCView))
             throw new MVPCViewNotImplementedException();
     }

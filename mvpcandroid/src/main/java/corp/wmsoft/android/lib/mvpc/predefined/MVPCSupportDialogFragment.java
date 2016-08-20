@@ -64,8 +64,8 @@ public abstract class MVPCSupportDialogFragment<V extends IMVPCView, P extends I
 
     @CallSuper
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroyView() {
+        super.onDestroyView();
         getMvpсDelegate().onDetachView();
     }
 

@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityMainBinding;
+import corp.wmsoft.android.examples.mvpc.longrunning.LongRunningActivity;
 import corp.wmsoft.android.examples.mvpc.second.SecondActivity;
 import corp.wmsoft.android.lib.mvpc.predefined.MVPCAppCompatActivity;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
@@ -84,6 +85,11 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
     @Override
     public void showSecondView() {
         startActivity(new Intent(this, SecondActivity.class));
+    }
+
+    @Override
+    public void showLongRunningView() {
+        startActivity(new Intent(this, LongRunningActivity.class));
     }
 
 }

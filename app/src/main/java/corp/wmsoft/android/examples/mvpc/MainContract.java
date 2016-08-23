@@ -17,6 +17,8 @@ public interface MainContract {
 
         void showSecondView();
 
+        void showLongRunningView();
+
     }
 
     interface Presenter extends IMVPCPresenter<View> {
@@ -24,6 +26,8 @@ public interface MainContract {
         void onFabClick();
 
         void onGoToSecondView();
+
+        void onGoToLongRunning();
 
     }
 }

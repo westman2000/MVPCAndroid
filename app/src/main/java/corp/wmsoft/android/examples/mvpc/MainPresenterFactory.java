@@ -1,5 +1,6 @@
 package corp.wmsoft.android.examples.mvpc;
 
+import corp.wmsoft.android.examples.mvpc.di.Injection;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
@@ -15,6 +16,6 @@ public class MainPresenterFactory implements IMVPCPresenterFactory<MainContract.
 
     @Override
     public MainContract.Presenter create() {
-        return new MainPresenter();
+        return new MainPresenter(Injection.provideMVPCUseCaseHandler());
     }
 }

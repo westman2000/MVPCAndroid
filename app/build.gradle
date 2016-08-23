@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.jakewharton.hugo'
 
 apply from: '../mvpcandroid/variables.gradle'
 
@@ -31,6 +32,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.5'
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 

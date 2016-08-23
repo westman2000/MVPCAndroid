@@ -2,6 +2,7 @@ package corp.wmsoft.android.examples.mvpc;
 
 import java.util.Locale;
 
+import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCaseHandler;
 import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
 
 
@@ -15,7 +16,8 @@ public class MainPresenter extends MVPCPresenter<MainContract.View> implements M
     private int mCounter;
 
 
-    public MainPresenter() {
+    public MainPresenter(MVPCUseCaseHandler useCaseHandler) {
+        super(useCaseHandler);
         mCounter = 0;
     }
 
@@ -38,6 +40,11 @@ public class MainPresenter extends MVPCPresenter<MainContract.View> implements M
     @Override
     public void onGoToSecondView() {
         getView().showSecondView();
+    }
+
+    @Override
+    public void onGoToLongRunning() {
+        getView().showLongRunningView();
     }
 
     private void showCounter() {

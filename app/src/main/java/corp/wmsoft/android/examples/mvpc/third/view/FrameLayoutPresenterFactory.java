@@ -1,5 +1,6 @@
 package corp.wmsoft.android.examples.mvpc.third.view;
 
+import corp.wmsoft.android.examples.mvpc.di.Injection;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
@@ -15,6 +16,6 @@ public class FrameLayoutPresenterFactory implements IMVPCPresenterFactory<FrameL
 
     @Override
     public FrameLayoutContract.Presenter create() {
-        return new FrameLayoutPresenter();
+        return new FrameLayoutPresenter(Injection.provideMVPCUseCaseHandler());
     }
 }

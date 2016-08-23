@@ -33,6 +33,17 @@
                 android:value=".MainActivity"/>
         </activity>
 
+        <!--  LongRunning Activity  -->
+        <activity android:label="LongRunning Activity"
+                  android:name=".longrunning.LongRunningActivity"
+                  android:parentActivityName=".MainActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
         <!--  Third Activity  -->
         <activity android:label="Third Activity"
                   android:name=".third.ThirdActivity"

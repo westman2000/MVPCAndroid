@@ -25,9 +25,6 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     private MVPCUseCaseHandler mUseCaseHandler;
 
 
-    public MVPCPresenter() {
-    }
-
     public MVPCPresenter(MVPCUseCaseHandler useCaseHandler) {
         this.mUseCaseHandler = useCaseHandler;
     }

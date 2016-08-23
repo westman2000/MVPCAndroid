@@ -1,5 +1,6 @@
 package corp.wmsoft.android.examples.mvpc.third;
 
+import corp.wmsoft.android.examples.mvpc.di.Injection;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
@@ -15,6 +16,6 @@ public class ThirdPresenterFactory implements IMVPCPresenterFactory<ThirdContrac
 
     @Override
     public ThirdContract.Presenter create() {
-        return new ThirdPresenter();
+        return new ThirdPresenter(Injection.provideMVPCUseCaseHandler());
     }
 }

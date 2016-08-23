@@ -18,7 +18,7 @@ public class LongRunningActivity extends MVPCAppCompatActivity<LongRunningContra
 
     @Override
     public IMVPCPresenterFactory<LongRunningContract.View, LongRunningContract.Presenter> providePresenterFactory() {
-        return new LongRunningPresenterFactory();
+        return new RxLongRunningPresenterFactory();
     }
 
     @Override

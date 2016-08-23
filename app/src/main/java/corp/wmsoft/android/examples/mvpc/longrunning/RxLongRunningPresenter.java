@@ -1,5 +1,6 @@
 package corp.wmsoft.android.examples.mvpc.longrunning;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
@@ -11,7 +12,6 @@ import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -72,27 +72,23 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
         mSubscriptions.clear();
         message = "";
         Subscription subscription = fromFake()
-                .delay(5000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext(new Func1<Throwable, Observable<? extends String>>() {
-                    @Override
-                    public Observable<? extends String> call(Throwable throwable) {
-                        return null;
-                    }
-                })
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onCompleted() {
                         Log.i("RxLongRunning","onCompleted()");
-                        getView().hideLoading();
+                        if (isViewAttached()) {
+                            getView().hideLoading();
+                            getView().showMessage(message);
+                        }
                         isLoading = false;
-                        getView().showMessage(message);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.e("RxLongRunning","onError("+e+")");
+                        e.printStackTrace();
                         isLoading = false;
 
                         if (isViewAttached()) {
@@ -105,13 +101,16 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
                     public void onNext(String s) {
                         Log.i("RxLongRunning","onNext("+s+")");
                         message += s + "\n";
-                        getView().showMessage(message);
+                        if (isViewAttached()) {
+                            getView().showMessage(message);
+                        }
                     }
                 });
 
         mSubscriptions.add(subscription);
     }
 
+    @NonNull
     private Observable<String> fromFake() {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -126,7 +125,6 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
                             subscriber.onError(new Error("was error"));
                         }
                         subscriber.onNext("observable on next "+i);
-//                        if (i == 7) throw new Error("test error!!!");
                         i++;
                     }
                     subscriber.onCompleted();

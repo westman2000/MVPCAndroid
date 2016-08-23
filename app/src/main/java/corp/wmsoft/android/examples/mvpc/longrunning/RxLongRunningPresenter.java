@@ -5,18 +5,22 @@ import android.util.Log;
 import java.util.concurrent.TimeUnit;
 
 import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
+import hugo.weaving.DebugLog;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 
 /**
  * Created by admin on 8/5/16.
  *
  */
+@DebugLog
 public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.View> implements LongRunningContract.Presenter {
 
     /**/
@@ -24,17 +28,14 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
     /**/
     private String message;
     /**/
-    private Observable<String> mObservable;
-    /**/
-    private Subscription mSubscription;
+    private CompositeSubscription mSubscriptions;
 
 
-    public RxLongRunningPresenter(
-    ) {
+    public RxLongRunningPresenter() {
         super(null);
         isLoading = false;
         message = "";
-        init();
+        mSubscriptions = new CompositeSubscription();
     }
 
     @Override
@@ -44,8 +45,8 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
             getView().showLoading();
         else {
             getView().hideLoading();
-            getView().showMessage(message);
         }
+        getView().showMessage(message);
     }
 
     @Override
@@ -56,8 +57,8 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
     @Override
     public void onDestroyed() {
         super.onDestroyed();
-        if (mSubscription != null && !mSubscription.isUnsubscribed())
-            mSubscription.unsubscribe();
+        mSubscriptions.clear();
+        mSubscriptions = null;
     }
 
     /**
@@ -65,44 +66,54 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
      */
     @Override
     public void onStartUseCase() {
-//        if (!isLoading) {
+        getView().showLoading();
+        isLoading = true;
 
-            getView().showLoading();
-            isLoading = true;
+        mSubscriptions.clear();
+        message = "";
+        Subscription subscription = fromFake()
+                .delay(5000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends String>>() {
+                    @Override
+                    public Observable<? extends String> call(Throwable throwable) {
+                        return null;
+                    }
+                })
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i("RxLongRunning","onCompleted()");
+                        getView().hideLoading();
+                        isLoading = false;
+                        getView().showMessage(message);
+                    }
 
-            mSubscription = mObservable
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<String>() {
-                        @Override
-                        public void onCompleted() {
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("RxLongRunning","onError("+e+")");
+                        isLoading = false;
+
+                        if (isViewAttached()) {
                             getView().hideLoading();
-                            isLoading = false;
-                            getView().showMessage(message);
+                            getView().showMessage(e.getMessage());
                         }
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e("RxLongRunning","onError("+e+")");
-                            isLoading = false;
+                    @Override
+                    public void onNext(String s) {
+                        Log.i("RxLongRunning","onNext("+s+")");
+                        message += s + "\n";
+                        getView().showMessage(message);
+                    }
+                });
 
-                            if (isViewAttached()) {
-                                getView().hideLoading();
-                                getView().showMessage(e.getMessage());
-                            }
-                        }
-
-                        @Override
-                        public void onNext(String s) {
-                            message += s + "\n";
-                            getView().showMessage(message);
-                        }
-                    });
-//        }
+        mSubscriptions.add(subscription);
     }
 
-    private void init() {
-        mObservable = Observable.create(new Observable.OnSubscribe<String>() {
+    private Observable<String> fromFake() {
+        return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 if (!subscriber.isUnsubscribed()) {

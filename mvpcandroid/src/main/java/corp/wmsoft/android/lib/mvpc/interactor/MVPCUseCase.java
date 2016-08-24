@@ -1,76 +1,46 @@
 package corp.wmsoft.android.lib.mvpc.interactor;
 
+import corp.wmsoft.android.lib.mvpc.util.IMVPCSchedulerProvider;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscription;
+
+
 /**
- * Use cases are the entry points to the domain layer.
+ * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
+ * This interface represents a execution unit for different use cases (this means any use case
+ * in the application should implement this contract).
  *
- * @param <Q> the request type
- * @param <P> the response type
+ * By convention each UseCase implementation will return the result using a {@link rx.Subscriber}
+ * that will execute its job in a background thread and will post the result in the UI thread.
  */
-public abstract class MVPCUseCase<Q extends MVPCUseCase.RequestValues, P extends MVPCUseCase.ResponseValue> {
 
-    private Q mRequestValues;
+public abstract class MVPCUseCase<T> {
 
-    private IUseCaseCallback<P> mUseCaseCallback;
+    /**/
+    private final IMVPCSchedulerProvider mMVPCSchedulerProvider;
 
-    /**
-     *
-     */
-    public void setRequestValues(Q requestValues) {
-        mRequestValues = requestValues;
+
+    public MVPCUseCase(IMVPCSchedulerProvider schedulerProvider) {
+        this.mMVPCSchedulerProvider = schedulerProvider;
     }
 
     /**
-     *
+     * Builds an {@link rx.Observable} which will be used when executing the current {@link MVPCUseCase}.
      */
-    public Q getRequestValues() {
-        return mRequestValues;
+    protected abstract Observable<T> buildUseCaseObservable();
+
+    /**
+     * Executes the current use case.
+     *
+     * @param useCaseSubscriber The guy who will be listen to the observable build
+     * with {@link #buildUseCaseObservable()}.
+     */
+    public Subscription execute(Observer<? super T> useCaseSubscriber) {
+        return this.buildUseCaseObservable()
+                .subscribeOn(mMVPCSchedulerProvider.io())
+                .observeOn(mMVPCSchedulerProvider.ui())
+                .subscribe(useCaseSubscriber);
     }
 
-    /**
-     *
-     */
-    public IUseCaseCallback<P> getUseCaseCallback() {
-        return mUseCaseCallback;
-    }
-
-    /**
-     *
-     */
-    public void setUseCaseCallback(IUseCaseCallback<P> useCaseCallback) {
-        mUseCaseCallback = useCaseCallback;
-    }
-
-    /**
-     *
-     */
-    void run() {
-       executeUseCase(mRequestValues);
-    }
-
-    /**
-     *
-     */
-    protected abstract void executeUseCase(Q requestValues);
-
-    /**
-     * Data passed to a request.
-     */
-    public static class RequestValues {  }
-
-    /**
-     * Data received from a request.
-     */
-    public static class ResponseValue { }
-
-
-    /***********************************************************************
-     *
-     */
-    public interface IUseCaseCallback<R> {
-
-        void onSuccess(R response);
-
-        void onError(Error error);
-
-    }
 }

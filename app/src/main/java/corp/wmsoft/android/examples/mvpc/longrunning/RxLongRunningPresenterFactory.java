@@ -1,5 +1,6 @@
 package corp.wmsoft.android.examples.mvpc.longrunning;
 
+import corp.wmsoft.android.examples.mvpc.di.Injection;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
@@ -15,7 +16,6 @@ public class RxLongRunningPresenterFactory implements IMVPCPresenterFactory<Long
 
     @Override
     public LongRunningContract.Presenter create() {
-        return new RxLongRunningPresenter(
-        );
+        return new RxLongRunningPresenter(Injection.provideLongRunningUseCase());
     }
 }

@@ -1,6 +1,5 @@
 package corp.wmsoft.android.examples.mvpc.second;
 
-import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCaseHandler;
 import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
 
 
@@ -11,8 +10,7 @@ import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
 public class SecondPresenter extends MVPCPresenter<SecondContract.View> implements SecondContract.Presenter {
 
 
-    public SecondPresenter(MVPCUseCaseHandler useCaseHandler) {
-        super(useCaseHandler);
+    public SecondPresenter() {
     }
 
     /**

@@ -2,7 +2,6 @@ package corp.wmsoft.android.examples.mvpc.third;
 
 import java.util.Locale;
 
-import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCaseHandler;
 import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
 
 
@@ -16,8 +15,7 @@ public class ThirdPresenter extends MVPCPresenter<ThirdContract.View> implements
     private int mCounter;
 
 
-    public ThirdPresenter(MVPCUseCaseHandler useCaseHandler) {
-        super(useCaseHandler);
+    public ThirdPresenter() {
         mCounter = 0;
     }
 

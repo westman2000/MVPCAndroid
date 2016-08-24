@@ -2,7 +2,6 @@ package corp.wmsoft.android.examples.mvpc.third.view;
 
 import java.util.Locale;
 
-import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCaseHandler;
 import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
 
 
@@ -16,8 +15,7 @@ public class FrameLayoutPresenter extends MVPCPresenter<FrameLayoutContract.View
     private int mCounter;
 
 
-    public FrameLayoutPresenter(MVPCUseCaseHandler useCaseHandler) {
-        super(useCaseHandler);
+    public FrameLayoutPresenter() {
         mCounter = 0;
     }
 

@@ -1,6 +1,5 @@
 package corp.wmsoft.android.examples.mvpc.second;
 
-import corp.wmsoft.android.examples.mvpc.di.Injection;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
@@ -16,6 +15,6 @@ public class SecondPresenterFactory implements IMVPCPresenterFactory<SecondContr
 
     @Override
     public SecondContract.Presenter create() {
-        return new SecondPresenter(Injection.provideMVPCUseCaseHandler());
+        return new SecondPresenter();
     }
 }

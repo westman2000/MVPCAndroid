@@ -1,6 +1,5 @@
 package corp.wmsoft.android.examples.mvpc.second.fragment;
 
-import corp.wmsoft.android.examples.mvpc.di.Injection;
 import corp.wmsoft.android.lib.mvpc.presenter.factory.IMVPCPresenterFactory;
 
 
@@ -19,6 +18,6 @@ public class TestPresenterFactory implements IMVPCPresenterFactory<TestContract.
 
     @Override
     public TestContract.Presenter create() {
-        return new TestPresenter(Injection.provideMVPCUseCaseHandler(), mPresenterName);
+        return new TestPresenter(mPresenterName);
     }
 }

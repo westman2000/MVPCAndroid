@@ -1,14 +1,15 @@
 package corp.wmsoft.android.lib.mvpc.presenter;
 
 import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
-import corp.wmsoft.android.lib.mvpc.exceptions.MVPCUseCaseHandlerNotSetException;
 import corp.wmsoft.android.lib.mvpc.exceptions.MVPCViewNotAttachedException;
-import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCaseHandler;
+import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCase;
 import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
+import rx.Observer;
+import rx.Subscriber;
+import rx.subscriptions.CompositeSubscription;
 
 
 /**
@@ -22,11 +23,11 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     /**/
     private WeakReference<V> mMvpViewRef;
     /**/
-    private MVPCUseCaseHandler mUseCaseHandler;
+    private CompositeSubscription mSubscriptions;
 
 
-    public MVPCPresenter(MVPCUseCaseHandler useCaseHandler) {
-        this.mUseCaseHandler = useCaseHandler;
+    public MVPCPresenter() {
+        mSubscriptions = new CompositeSubscription();
     }
 
     @CallSuper
@@ -51,6 +52,12 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     @Override
     public void onDestroyed() {
         clean();
+        mSubscriptions.clear();
+        mSubscriptions = null;
+    }
+
+    public <T> void executeUseCase(MVPCUseCase<T> useCase, Observer<T> useCaseSubscriber) {
+        mSubscriptions.add(useCase.execute(useCaseSubscriber));
     }
 
     /**
@@ -62,12 +69,6 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     protected V getView() {
         checkViewAttached();
         return mMvpViewRef.get();
-    }
-
-    @Nullable
-    protected MVPCUseCaseHandler getUseCaseHandler() {
-        if (mUseCaseHandler == null) throw new MVPCUseCaseHandlerNotSetException();
-        return mUseCaseHandler;
     }
 
     /**

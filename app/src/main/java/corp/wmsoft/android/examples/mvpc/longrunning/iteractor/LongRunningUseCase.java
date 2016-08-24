@@ -3,45 +3,47 @@ package corp.wmsoft.android.examples.mvpc.longrunning.iteractor;
 import java.util.concurrent.TimeUnit;
 
 import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCase;
-import hugo.weaving.DebugLog;
+import corp.wmsoft.android.lib.mvpc.util.IMVPCSchedulerProvider;
+import rx.Observable;
+import rx.Subscriber;
+
 
 /**
  * Created by westman on 8/22/16.
+ *
  */
-@DebugLog
-public class LongRunningUseCase extends MVPCUseCase<LongRunningUseCase.RequestValues, LongRunningUseCase.ResponseValue> {
+public class LongRunningUseCase extends MVPCUseCase<String> {
 
+
+    public LongRunningUseCase(IMVPCSchedulerProvider schedulerProvider) {
+        super(schedulerProvider);
+    }
 
     @Override
-    protected void executeUseCase(RequestValues requestValues) {
-
-        String message = "response from use case";
-
-        try {
-            TimeUnit.SECONDS.sleep(20);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            getUseCaseCallback().onError(new Error("error in use case"));
-        }
-
-        ResponseValue responseValue = new ResponseValue(message);
-        getUseCaseCallback().onSuccess(responseValue);
+    protected Observable<String> buildUseCaseObservable() {
+        return fromFake();
     }
 
-    public static class RequestValues extends MVPCUseCase.RequestValues {
+    private Observable<String> fromFake() {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                if (!subscriber.isUnsubscribed()) {
+                    int i = 0;
+                    while (i < 14) {
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            subscriber.onError(new Error("was error"));
+                        }
+                        subscriber.onNext("observable on next "+i);
+                        i++;
+                    }
+                    subscriber.onCompleted();
+                }
+            }
+        });
     }
 
-    public static class ResponseValue extends MVPCUseCase.ResponseValue {
-
-        private final String responseMessage;
-
-
-        public ResponseValue(String responseMessage) {
-            this.responseMessage = responseMessage;
-        }
-
-        public String getResponseMessage() {
-            return responseMessage;
-        }
-    }
 }

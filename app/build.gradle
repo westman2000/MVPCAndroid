@@ -43,8 +43,8 @@ dependencies {
     compile "com.android.support:design:${versions.supportLib}"
 
     // RxJava
-    compile 'io.reactivex:rxjava:1.1.9'
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile "io.reactivex:rxjava:${versions.rxjava}"
+    compile "io.reactivex:rxandroid:${versions.rxandroid}"
 
     // A memory leak detection library
     debugCompile "com.squareup.leakcanary:leakcanary-android:${versions.leakcanaryLib}"

@@ -1,5 +1,6 @@
 package corp.wmsoft.android.examples.mvpc.di;
 
+import corp.wmsoft.android.examples.mvpc.longrunning.iteractor.DelayedUseCase;
 import corp.wmsoft.android.examples.mvpc.longrunning.iteractor.LongRunningUseCase;
 import corp.wmsoft.android.lib.mvpc.util.IMVPCSchedulerProvider;
 import corp.wmsoft.android.lib.mvpc.util.MVPCSchedulerProvider;
@@ -19,6 +20,10 @@ public class Injection {
 
     public static LongRunningUseCase provideLongRunningUseCase() {
         return new LongRunningUseCase(provideMVPCSchedulerProvider());
+    }
+
+    public static DelayedUseCase provideDelayedUseCase() {
+        return new DelayedUseCase(provideMVPCSchedulerProvider(), provideLongRunningUseCase());
     }
 
 }

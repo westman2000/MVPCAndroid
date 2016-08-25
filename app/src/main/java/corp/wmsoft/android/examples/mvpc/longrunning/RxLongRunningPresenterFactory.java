@@ -16,6 +16,6 @@ public class RxLongRunningPresenterFactory implements IMVPCPresenterFactory<Long
 
     @Override
     public LongRunningContract.Presenter create() {
-        return new RxLongRunningPresenter(Injection.provideLongRunningUseCase());
+        return new RxLongRunningPresenter(Injection.provideDelayedUseCase());
     }
 }

@@ -28,7 +28,7 @@ public abstract class MVPCUseCase<T> {
     /**
      * Builds an {@link rx.Observable} which will be used when executing the current {@link MVPCUseCase}.
      */
-    protected abstract Observable<T> buildUseCaseObservable();
+    public abstract Observable<T> buildUseCaseObservable();
 
     /**
      * Executes the current use case.

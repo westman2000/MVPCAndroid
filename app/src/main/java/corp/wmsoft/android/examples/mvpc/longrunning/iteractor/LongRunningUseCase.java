@@ -1,7 +1,6 @@
 package corp.wmsoft.android.examples.mvpc.longrunning.iteractor;
 
-import java.util.concurrent.TimeUnit;
-
+import corp.wmsoft.android.examples.mvpc.util.DateTimeUtil;
 import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCase;
 import corp.wmsoft.android.lib.mvpc.util.IMVPCSchedulerProvider;
 import rx.Observable;
@@ -20,7 +19,7 @@ public class LongRunningUseCase extends MVPCUseCase<String> {
     }
 
     @Override
-    protected Observable<String> buildUseCaseObservable() {
+    public Observable<String> buildUseCaseObservable() {
         return fromFake();
     }
 
@@ -31,13 +30,7 @@ public class LongRunningUseCase extends MVPCUseCase<String> {
                 if (!subscriber.isUnsubscribed()) {
                     int i = 0;
                     while (i < 14) {
-                        try {
-                            TimeUnit.SECONDS.sleep(1);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            subscriber.onError(new Error("was error"));
-                        }
-                        subscriber.onNext("observable on next "+i);
+                        subscriber.onNext(i+" at "+ DateTimeUtil.formatMillisecondsToString(System.currentTimeMillis()));
                         i++;
                     }
                     subscriber.onCompleted();

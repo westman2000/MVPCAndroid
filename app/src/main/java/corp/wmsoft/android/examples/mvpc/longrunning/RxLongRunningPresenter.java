@@ -2,6 +2,7 @@ package corp.wmsoft.android.examples.mvpc.longrunning;
 
 import android.util.Log;
 
+import corp.wmsoft.android.examples.mvpc.longrunning.iteractor.DelayedUseCase;
 import corp.wmsoft.android.examples.mvpc.longrunning.iteractor.LongRunningUseCase;
 import corp.wmsoft.android.lib.mvpc.presenter.MVPCPresenter;
 import rx.Observer;
@@ -14,15 +15,15 @@ import rx.Observer;
 public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.View> implements LongRunningContract.Presenter {
 
     /**/
-    private LongRunningUseCase mLongRunningUseCase;
+    private DelayedUseCase mDelayedUseCase;
     /**/
     private boolean isLoading;
     /**/
     private String message;
 
 
-    public RxLongRunningPresenter(LongRunningUseCase longRunningUseCase) {
-        mLongRunningUseCase = longRunningUseCase;
+    public RxLongRunningPresenter(DelayedUseCase delayedUseCase) {
+        mDelayedUseCase = delayedUseCase;
         isLoading = false;
         message = "";
     }
@@ -47,7 +48,7 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
         isLoading = true;
         message = "";
 
-        this.executeUseCase(mLongRunningUseCase, new Observer<String>() {
+        this.executeUseCase(mDelayedUseCase, new Observer<String>() {
             @Override
             public void onCompleted() {
                 Log.i("RxLongRunning","onCompleted()");

@@ -3,11 +3,11 @@ buildscript {
     ext {
 
         setup = [compileSdk: 24,
-                 buildTools: "24.0.1",
+                 buildTools: "24.0.2",
                  minSdk    : 9,
                  targetSdk : 24,
-                 verName   : "0.0.9",
-                 verCode   : 9]
+                 verName   : "0.0.10",
+                 verCode   : 10]
 
         versions = [supportLib   : "24.2.0",
                     leakcanaryLib: "1.4-beta2",

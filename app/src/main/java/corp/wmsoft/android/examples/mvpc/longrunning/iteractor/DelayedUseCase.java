@@ -13,7 +13,7 @@ import rx.functions.Func1;
  * Created by westman on 8/22/16.
  *
  */
-public class DelayedUseCase extends MVPCUseCase<String> {
+public class DelayedUseCase extends MVPCUseCase<DelayedUseCase.RequestValues, String> {
 
     /**/
     private LongRunningUseCase mLongRunningUseCase;
@@ -38,9 +38,17 @@ public class DelayedUseCase extends MVPCUseCase<String> {
                 .map(new Func1<String, String>() {
                     @Override
                     public String call(String s) {
+
+                        try {
+                            TimeUnit.SECONDS.sleep(2);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
                         return s + " [" + DateTimeUtil.formatMillisecondsToString(System.currentTimeMillis()) + "]";
                     }
                 });
     }
 
+    public static class RequestValues extends MVPCUseCase.RequestValues {}
 }

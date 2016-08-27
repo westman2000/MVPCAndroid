@@ -11,7 +11,7 @@ import rx.Subscriber;
  * Created by westman on 8/22/16.
  *
  */
-public class LongRunningUseCase extends MVPCUseCase<String> {
+public class LongRunningUseCase extends MVPCUseCase<LongRunningUseCase.RequestValues, String> {
 
 
     public LongRunningUseCase(IMVPCSchedulerProvider schedulerProvider) {
@@ -38,5 +38,7 @@ public class LongRunningUseCase extends MVPCUseCase<String> {
             }
         });
     }
+
+    public static class RequestValues extends MVPCUseCase.RequestValues {}
 
 }

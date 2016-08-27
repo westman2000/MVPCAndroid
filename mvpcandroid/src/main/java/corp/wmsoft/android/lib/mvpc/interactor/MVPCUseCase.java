@@ -13,16 +13,35 @@ import rx.Subscription;
  *
  * By convention each UseCase implementation will return the result using a {@link rx.Subscriber}
  * that will execute its job in a background thread and will post the result in the UI thread.
+ *
+ * @param <Q> the request type
+ * @param <T> the response type
  */
 
-public abstract class MVPCUseCase<T> {
+public abstract class MVPCUseCase<Q extends MVPCUseCase.RequestValues, T> {
 
     /**/
     private final IMVPCSchedulerProvider mMVPCSchedulerProvider;
+    /**/
+    private Q mRequestValues;
 
 
     public MVPCUseCase(IMVPCSchedulerProvider schedulerProvider) {
         this.mMVPCSchedulerProvider = schedulerProvider;
+    }
+
+    /**
+     *
+     */
+    public void setRequestValues(Q requestValues) {
+        mRequestValues = requestValues;
+    }
+
+    /**
+     *
+     */
+    public Q getRequestValues() {
+        return mRequestValues;
     }
 
     /**
@@ -43,4 +62,8 @@ public abstract class MVPCUseCase<T> {
                 .subscribe(useCaseSubscriber);
     }
 
+    /**
+     * Data passed to a request.
+     */
+    public static class RequestValues {  }
 }

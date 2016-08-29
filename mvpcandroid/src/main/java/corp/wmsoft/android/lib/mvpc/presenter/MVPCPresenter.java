@@ -8,6 +8,7 @@ import corp.wmsoft.android.lib.mvpc.exceptions.MVPCViewNotAttachedException;
 import corp.wmsoft.android.lib.mvpc.interactor.MVPCUseCase;
 import corp.wmsoft.android.lib.mvpc.view.IMVPCView;
 import rx.Observer;
+import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 
@@ -58,6 +59,11 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     public <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, Observer<T> useCaseSubscriber) {
         useCase.setRequestValues(requestValues);
         mSubscriptions.add(useCase.execute(useCaseSubscriber));
+    }
+
+    public <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, final Action1<? super T> useCaseOnNext) {
+        useCase.setRequestValues(requestValues);
+        mSubscriptions.add(useCase.execute(useCaseOnNext));
     }
 
     /**

@@ -4,6 +4,7 @@ import corp.wmsoft.android.lib.mvpc.util.IMVPCSchedulerProvider;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
+import rx.functions.Action1;
 
 
 /**
@@ -52,14 +53,20 @@ public abstract class MVPCUseCase<Q extends MVPCUseCase.RequestValues, T> {
     /**
      * Executes the current use case.
      *
-     * @param useCaseSubscriber The guy who will be listen to the observable build
-     * with {@link #buildUseCaseObservable()}.
+     * @param useCaseSubscriber The guy who will be listen to the observable build with {@link #buildUseCaseObservable()}.
      */
     public Subscription execute(Observer<? super T> useCaseSubscriber) {
         return this.buildUseCaseObservable()
                 .subscribeOn(mMVPCSchedulerProvider.io())
                 .observeOn(mMVPCSchedulerProvider.ui())
                 .subscribe(useCaseSubscriber);
+    }
+
+    public Subscription execute(final Action1<? super T> useCaseOnNext) {
+        return this.buildUseCaseObservable()
+                .subscribeOn(mMVPCSchedulerProvider.io())
+                .observeOn(mMVPCSchedulerProvider.ui())
+                .subscribe(useCaseOnNext);
     }
 
     /**

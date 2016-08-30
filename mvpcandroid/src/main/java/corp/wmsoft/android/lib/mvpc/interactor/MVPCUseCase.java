@@ -23,8 +23,6 @@ public abstract class MVPCUseCase<Q extends MVPCUseCase.RequestValues, T> {
 
     /**/
     private final IMVPCSchedulerProvider mMVPCSchedulerProvider;
-    /**/
-    private Q mRequestValues;
 
 
     public MVPCUseCase(IMVPCSchedulerProvider schedulerProvider) {
@@ -32,38 +30,24 @@ public abstract class MVPCUseCase<Q extends MVPCUseCase.RequestValues, T> {
     }
 
     /**
-     *
-     */
-    public void setRequestValues(Q requestValues) {
-        mRequestValues = requestValues;
-    }
-
-    /**
-     *
-     */
-    public Q getRequestValues() {
-        return mRequestValues;
-    }
-
-    /**
      * Builds an {@link rx.Observable} which will be used when executing the current {@link MVPCUseCase}.
      */
-    public abstract Observable<T> buildUseCaseObservable();
+    public abstract Observable<T> buildUseCaseObservable(Q requestValues);
 
     /**
      * Executes the current use case.
      *
-     * @param useCaseSubscriber The guy who will be listen to the observable build with {@link #buildUseCaseObservable()}.
+     * @param useCaseSubscriber The guy who will be listen to the observable build with {@link #buildUseCaseObservable(Q)}.
      */
-    public Subscription execute(Observer<? super T> useCaseSubscriber) {
-        return this.buildUseCaseObservable()
+    public Subscription execute(Q requestValues, Observer<? super T> useCaseSubscriber) {
+        return this.buildUseCaseObservable(requestValues)
                 .subscribeOn(mMVPCSchedulerProvider.io())
                 .observeOn(mMVPCSchedulerProvider.ui())
                 .subscribe(useCaseSubscriber);
     }
 
-    public Subscription execute(final Action1<? super T> useCaseOnNext) {
-        return this.buildUseCaseObservable()
+    public Subscription execute(Q requestValues, final Action1<? super T> useCaseOnNext) {
+        return this.buildUseCaseObservable(requestValues)
                 .subscribeOn(mMVPCSchedulerProvider.io())
                 .observeOn(mMVPCSchedulerProvider.ui())
                 .subscribe(useCaseOnNext);

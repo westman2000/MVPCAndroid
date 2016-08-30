@@ -57,13 +57,11 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     }
 
     public <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, Observer<T> useCaseSubscriber) {
-        useCase.setRequestValues(requestValues);
-        mSubscriptions.add(useCase.execute(useCaseSubscriber));
+        mSubscriptions.add(useCase.execute(requestValues, useCaseSubscriber));
     }
 
     public <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, final Action1<? super T> useCaseOnNext) {
-        useCase.setRequestValues(requestValues);
-        mSubscriptions.add(useCase.execute(useCaseOnNext));
+        mSubscriptions.add(useCase.execute(requestValues, useCaseOnNext));
     }
 
     /**

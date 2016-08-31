@@ -1,6 +1,10 @@
 # MVPCAndroid
 Model-View-Presenter-Clean Architecture for Android
 Retain presenters in Loaders
+Iteractors with RxJava
+
+**Under development**
+**Work in progress**
 
 # Integration
 

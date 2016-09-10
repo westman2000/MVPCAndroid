@@ -32,6 +32,10 @@ android {
     }
 }
 
+configurations {
+    javadocDeps
+}
+
 buildscript {
     dependencies {
         repositories {
@@ -46,10 +50,13 @@ dependencies {
 
     // android framework
     compile "com.android.support:appcompat-v7:${versions.supportLib}"
+    javadocDeps "com.android.support:appcompat-v7:${versions.supportLib}"
     compile "com.android.support:support-annotations:${versions.supportLib}"
+    javadocDeps "com.android.support:support-annotations:${versions.supportLib}"
 
     // RxJava
     compile "io.reactivex:rxjava:${versions.rxjava}"
+    javadocDeps "io.reactivex:rxjava:${versions.rxjava}"
     compile "io.reactivex:rxandroid:${versions.rxandroid}"
 }
 
@@ -62,7 +69,9 @@ task generateSourcesJar(type: Jar) {
 
 task generateJavadocs(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
+    classpath += configurations.javadocDeps
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
 }
 
 task generateJavadocsJar(type: Jar) {
@@ -129,4 +138,7 @@ def getBinTrayKey() {
 
 // HOWTO
 // http://code.tutsplus.com/tutorials/creating-and-publishing-an-android-library--cms-24582
+
+// 1. Run Gradle -> :mvpcandroid -> Tasks -> other -> install
+// 2. Run Gradle -> :mvpcandroid -> Tasks -> publishing -> bintrayUpload
 

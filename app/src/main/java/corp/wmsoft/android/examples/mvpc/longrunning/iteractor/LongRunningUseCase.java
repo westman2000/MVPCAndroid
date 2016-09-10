@@ -19,7 +19,7 @@ public class LongRunningUseCase extends MVPCUseCase<LongRunningUseCase.RequestVa
     }
 
     @Override
-    public Observable<String> buildUseCaseObservable() {
+    public Observable<String> buildUseCaseObservable(RequestValues requestValues) {
         return fromFake();
     }
 

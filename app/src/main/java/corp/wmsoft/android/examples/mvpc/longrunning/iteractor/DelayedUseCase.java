@@ -27,13 +27,13 @@ public class DelayedUseCase extends MVPCUseCase<DelayedUseCase.RequestValues, St
     }
 
     @Override
-    public Observable<String> buildUseCaseObservable() {
-        return create();
+    public Observable<String> buildUseCaseObservable(RequestValues requestValues) {
+        return create(requestValues);
     }
 
-    private Observable<String> create() {
+    private Observable<String> create(RequestValues requestValues) {
         return mLongRunningUseCase
-                .buildUseCaseObservable()
+                .buildUseCaseObservable(requestValues.getLongRunningUseCaseRequestValues())
                 .delay(3, TimeUnit.SECONDS)
                 .map(new Func1<String, String>() {
                     @Override
@@ -50,5 +50,20 @@ public class DelayedUseCase extends MVPCUseCase<DelayedUseCase.RequestValues, St
                 });
     }
 
-    public static class RequestValues extends MVPCUseCase.RequestValues {}
+
+
+    public static class RequestValues extends MVPCUseCase.RequestValues {
+
+        /**/
+        private LongRunningUseCase.RequestValues mLongRunningUseCaseRequestValues;
+
+
+        public RequestValues(LongRunningUseCase.RequestValues mLongRunningUseCaseRequestValues) {
+            this.mLongRunningUseCaseRequestValues = mLongRunningUseCaseRequestValues;
+        }
+
+        public LongRunningUseCase.RequestValues getLongRunningUseCaseRequestValues() {
+            return mLongRunningUseCaseRequestValues;
+        }
+    }
 }

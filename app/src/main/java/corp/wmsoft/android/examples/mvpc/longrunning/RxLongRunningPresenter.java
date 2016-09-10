@@ -48,7 +48,7 @@ public class RxLongRunningPresenter extends MVPCPresenter<LongRunningContract.Vi
         isLoading = true;
         message = "";
 
-        DelayedUseCase.RequestValues requestValues = new DelayedUseCase.RequestValues();
+        DelayedUseCase.RequestValues requestValues = new DelayedUseCase.RequestValues(new LongRunningUseCase.RequestValues());
 
         this.executeUseCase(mDelayedUseCase, requestValues, new Observer<String>() {
             @Override

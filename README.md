@@ -8,11 +8,19 @@ Iteractors with RxJava
 
 # Integration
 
-On JCenter: 
+On Maven: 
 
 **build.gradle** 
 ```gradle
-compile 'corp.wmsoft.android.lib:mvpcandroid:+'
+repositories {
+    maven {
+        url 'https://dl.bintray.com/westman2000/maven'
+    }
+}
+
+dependencies {
+    compile 'corp.wmsoft.android.lib:mvpcandroid:+'
+}
 ```
 
 Or like library project: 

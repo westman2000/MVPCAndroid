@@ -10,7 +10,7 @@ version = setup.verName // Change this to match your version number
 // Define versions in a single place
 ext {
     // Details
-    libraryName = 'MVPCAndroid'
+    libraryName = 'MVPCAndroid-Rx'
     libraryDesc = 'Model-View-Presenter-Clean'
 }
 

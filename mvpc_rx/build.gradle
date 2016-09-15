@@ -139,6 +139,6 @@ def getBinTrayKey() {
 // HOWTO
 // http://code.tutsplus.com/tutorials/creating-and-publishing-an-android-library--cms-24582
 
-// 1. Run Gradle -> :mvpcandroid -> Tasks -> other -> install
-// 2. Run Gradle -> :mvpcandroid -> Tasks -> publishing -> bintrayUpload
+// 1. Run Gradle -> :mvpc_rx -> Tasks -> other -> install
+// 2. Run Gradle -> :mvpc_rx -> Tasks -> publishing -> bintrayUpload
 

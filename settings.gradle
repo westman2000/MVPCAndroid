@@ -1,1 +1,1 @@
-include ':app', ':mvpcandroid'
+include ':example_app', ':mvpc_rx'

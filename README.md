@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    compile 'corp.wmsoft.android.lib:mvpcandroid:+'
+    compile 'corp.wmsoft.android.lib:mvpc_rx:+'
 }
 ```
 
@@ -29,10 +29,10 @@ Or like library project:
 
 **settings.gradle** 
 ```gradle
-include ':mvpcandroid'
-project(':mvpcandroid').projectDir = new File(settingsDir, '../MVPCAndroid/mvpcandroid')
+include ':mvpc_rx'
+project(':mvpc_rx').projectDir = new File(settingsDir, '../MVPCAndroid/mvpc_rx')
 ```
 project **build.gradle** dependencies 
 ```gradle
-compile project(':mvpcandroid')
+compile project(':mvpc_rx')
 ```

@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.jakewharton.hugo'
+
+apply from: '../mvpc_rx/variables.gradle'
+
+android {
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
+
+    defaultConfig {
+        applicationId "corp.wmsoft.android.examples.mvpc"
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode setup.verCode
+        versionName setup.verName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.5'
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+    }
+}
+
+dependencies {
+    compile project(path: ':mvpc_rx')
+
+    // android widgets
+    compile "com.android.support:design:${versions.supportLib}"
+
+    // RxJava
+    compile "io.reactivex:rxjava:${versions.rxjava}"
+    compile "io.reactivex:rxandroid:${versions.rxandroid}"
+
+    // A memory leak detection library
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${versions.leakcanaryLib}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanaryLib}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanaryLib}"
+}

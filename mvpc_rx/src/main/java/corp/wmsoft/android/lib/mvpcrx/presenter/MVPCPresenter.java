@@ -14,7 +14,7 @@ import rx.subscriptions.CompositeSubscription;
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
- * attachView() and detachView().<br/>
+ * attachView() and detachView().
  * It also handles keeping a reference to the mvpView that can be accessed from the children classes by calling getView().
  * It also handles keeping a reference to the useCaseHandler that can be accessed from the children classes by calling getUseCaseHandler().
  */
@@ -26,7 +26,7 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     private CompositeSubscription mSubscriptions;
 
 
-    public MVPCPresenter() {
+    protected MVPCPresenter() {
         mSubscriptions = new CompositeSubscription();
     }
 
@@ -56,11 +56,11 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
         mSubscriptions = null;
     }
 
-    public <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, Observer<T> useCaseSubscriber) {
+    protected <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, Observer<T> useCaseSubscriber) {
         mSubscriptions.add(useCase.execute(requestValues, useCaseSubscriber));
     }
 
-    public <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, final Action1<? super T> useCaseOnNext) {
+    protected <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, final Action1<? super T> useCaseOnNext) {
         mSubscriptions.add(useCase.execute(requestValues, useCaseOnNext));
     }
 

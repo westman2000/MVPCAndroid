@@ -10,16 +10,10 @@ Iteractors with RxJava
 
 # Integration
 
-On Maven: 
+On jcenter: 
 
 **build.gradle** 
 ```gradle
-repositories {
-    maven {
-        url 'https://dl.bintray.com/westman2000/maven'
-    }
-}
-
 dependencies {
     compile 'corp.wmsoft.android.lib:mvpc_rx:+'
 }

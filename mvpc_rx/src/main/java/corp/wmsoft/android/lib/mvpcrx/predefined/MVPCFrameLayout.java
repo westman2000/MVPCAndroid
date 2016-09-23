@@ -47,10 +47,16 @@ public abstract class MVPCFrameLayout<V extends IMVPCView, P extends IMVPCPresen
         init(context);
     }
 
-    /**/
+    /**
+     *
+     * @return IMVPCPresenterFactory
+     */
     protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
 
-    /**/
+    /**
+     *
+     * @return Unique Identifier
+     */
     protected abstract int provideUniqueIdentifier();
 
     @Override

@@ -1,0 +1,19 @@
+ext {
+    compileSdkVer    = 24
+    buildToolsVer    = "24.0.2"
+
+    minSdkVer        = 9
+    targetSdkVer     = 24
+
+    verCode          = 2
+    verName          = "0.0.2"
+
+    supportLibVer    = "24.2.1"
+    leakcanaryLibVer = "1.4-beta2"
+    mvpcrxLibVer     = "0.0.1"
+    rxjavaLibVer     = "1.1.9"
+    rxandroidLibVer  = "1.2.1"
+
+    libraryName      = 'MVPC-Rx'
+    libraryDesc      = 'Model-View-Presenter-Clean-Rx'
+}

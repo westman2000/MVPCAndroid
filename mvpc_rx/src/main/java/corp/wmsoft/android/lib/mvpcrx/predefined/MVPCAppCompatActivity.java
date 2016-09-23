@@ -25,7 +25,10 @@ public abstract class MVPCAppCompatActivity<V extends IMVPCView, P extends IMVPC
     /**/
     private MVPCDelegate<V, P> mMvpcDelegate;
 
-    /**/
+    /**
+     *
+     * @return IMVPCPresenterFactory
+     */
     protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
 
 

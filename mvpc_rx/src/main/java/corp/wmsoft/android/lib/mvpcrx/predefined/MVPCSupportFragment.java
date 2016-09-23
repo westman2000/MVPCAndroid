@@ -24,7 +24,10 @@ public abstract class MVPCSupportFragment<V extends IMVPCView, P extends IMVPCPr
     /**/
     private MVPCDelegate<V, P> mMvpcDelegate;
 
-    /**/
+    /**
+     *
+     * @return factory
+     */
     protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
 
     public MVPCSupportFragment() {

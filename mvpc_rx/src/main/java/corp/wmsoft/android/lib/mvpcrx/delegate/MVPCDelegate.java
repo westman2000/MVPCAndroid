@@ -22,7 +22,7 @@ import corp.wmsoft.android.lib.mvpcrx.view.IMVPCView;
  * When using an {@link MVPCDelegate}, lifecycle methods which should be proxied to the delegate:
  * <ul>
  * <li>{@link #onCreate(Context, LoaderManager, IMVPCPresenterFactory, int, ICallback)} inside onCreate() for Activity, inside onActivityCreated() for Fragments or inside view constructor</li>
- * <li>{@link #onAttachView(V, ICallback)}: inside onStart() and onResume() of Fragment, inside onStart() of Activity, inside onAttachedToWindow for View</li>
+ * <li>{@link IMVPCPresenter#attachView(IMVPCView)} : inside onStart() and onResume() of Fragment, inside onStart() of Activity, inside onAttachedToWindow for View</li>
  * <li>{@link #onDetachView()}: inside onStop() for Activity, inside onStop() for Fragment, inside onDetachedFromWindow() for View</li>
  * </ul>
  * <p>

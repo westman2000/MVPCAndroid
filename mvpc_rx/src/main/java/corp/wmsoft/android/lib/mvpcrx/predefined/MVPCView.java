@@ -47,10 +47,16 @@ public abstract class MVPCView<V extends IMVPCView, P extends IMVPCPresenter<V>>
         init(context);
     }
 
-    /**/
+    /**
+     *
+     * @return IMVPCPresenterFactory
+     */
     protected abstract IMVPCPresenterFactory<V, P> providePresenterFactory();
 
-    /**/
+    /**
+     *
+     * @return Unique Identifier
+     */
     protected abstract int provideUniqueIdentifier();
 
     @Override

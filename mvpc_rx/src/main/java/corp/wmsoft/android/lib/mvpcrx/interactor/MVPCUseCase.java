@@ -31,13 +31,17 @@ public abstract class MVPCUseCase<Q extends MVPCUseCase.RequestValues, T> {
 
     /**
      * Builds an {@link rx.Observable} which will be used when executing the current {@link MVPCUseCase}.
+     * @param requestValues the request type
+     * @return Observable
      */
     public abstract Observable<T> buildUseCaseObservable(Q requestValues);
 
     /**
      * Executes the current use case.
      *
-     * @param useCaseSubscriber The guy who will be listen to the observable build with {@link #buildUseCaseObservable(Q)}.
+     * @param requestValues Q extends MVPCUseCase.RequestValues
+     * @param useCaseSubscriber The guy who will be listen to the observable.
+     * @return Subscription
      */
     public Subscription execute(Q requestValues, Observer<? super T> useCaseSubscriber) {
         return this.buildUseCaseObservable(requestValues)

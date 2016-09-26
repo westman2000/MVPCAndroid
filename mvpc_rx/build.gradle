@@ -21,7 +21,8 @@ android {
 
 }
 
-apply from: '../plugins/bintray.gradle'
+// bintray install and publish script
+apply from: '../bintray.gradle'
 
 dependencies {
 

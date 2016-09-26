@@ -11,7 +11,7 @@ ext {
     supportLibVer    = "24.2.1"
     leakcanaryLibVer = "1.4-beta2"
     mvpcrxLibVer     = "0.0.1"
-    rxjavaLibVer     = "1.1.9"
+    rxjavaLibVer     = "1.2.0"
     rxandroidLibVer  = "1.2.1"
 
     libraryName      = 'MVPC-Rx'

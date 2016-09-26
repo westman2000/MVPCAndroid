@@ -21,7 +21,7 @@ allprojects {
 }
 
 subprojects {
-    apply from: '../plugins/dependencies.gradle'
+    apply from: '../dependencies.gradle'
 }
 
 

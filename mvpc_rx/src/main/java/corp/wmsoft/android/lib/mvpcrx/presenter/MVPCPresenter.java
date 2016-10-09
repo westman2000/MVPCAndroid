@@ -8,6 +8,7 @@ import corp.wmsoft.android.lib.mvpcrx.exceptions.MVPCViewNotAttachedException;
 import corp.wmsoft.android.lib.mvpcrx.interactor.MVPCUseCase;
 import corp.wmsoft.android.lib.mvpcrx.view.IMVPCView;
 import rx.Observer;
+import rx.Subscription;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
@@ -52,8 +53,18 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     @Override
     public void onDestroyed() {
         clean();
-        mSubscriptions.clear();
+        mSubscriptions.unsubscribe();
         mSubscriptions = null;
+    }
+
+    /**
+     * Add your {@link Subscription} to internal {@link CompositeSubscription} that will be
+     * unsubscribed automatically on destroy of presenter
+     *
+     * @param subscription subscription to add to CompositeSubscription
+     */
+    protected void addSubscription(Subscription subscription) {
+        mSubscriptions.add(subscription);
     }
 
     protected <Q extends MVPCUseCase.RequestValues, T> void executeUseCase(MVPCUseCase<Q, T> useCase, Q requestValues, Observer<T> useCaseSubscriber) {

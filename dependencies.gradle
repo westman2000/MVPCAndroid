@@ -1,16 +1,15 @@
 ext {
-    compileSdkVer    = 24
-    buildToolsVer    = "24.0.2"
+    compileSdkVer    = 25
+    buildToolsVer    = "25.0.0"
 
     minSdkVer        = 9
-    targetSdkVer     = 24
+    targetSdkVer     = 25
 
-    verCode          = 5
-    verName          = "0.0.5"
+    verCode          = 6
+    verName          = "0.0.6"
 
-    supportLibVer    = "24.2.1"
-    leakcanaryLibVer = "1.4-beta2"
-    mvpcrxLibVer     = "0.0.1"
+    supportLibVer    = "25.0.0"
+    leakcanaryLibVer = "1.5"
     rxjavaLibVer     = "1.2.1"
     rxandroidLibVer  = "1.2.1"
 

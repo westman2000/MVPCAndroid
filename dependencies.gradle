@@ -5,8 +5,8 @@ ext {
     minSdkVer        = 9
     targetSdkVer     = 25
 
-    verCode          = 6
-    verName          = "0.0.6"
+    verCode          = 8
+    verName          = "0.0.8"
 
     supportLibVer    = "25.0.0"
     leakcanaryLibVer = "1.5"

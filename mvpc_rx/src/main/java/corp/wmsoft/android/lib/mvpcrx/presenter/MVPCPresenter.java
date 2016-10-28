@@ -25,10 +25,13 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     private WeakReference<V> mMvpViewRef;
     /**/
     private CompositeSubscription mSubscriptions;
+    /**/
+    private boolean isDestroyed;
 
 
     protected MVPCPresenter() {
         mSubscriptions = new CompositeSubscription();
+        isDestroyed = false;
     }
 
     @CallSuper
@@ -54,7 +57,15 @@ public abstract class MVPCPresenter<V extends IMVPCView> implements IMVPCPresent
     public void onDestroyed() {
         clean();
         mSubscriptions.unsubscribe();
-        mSubscriptions = null;
+        isDestroyed = true;
+    }
+
+    /**
+     * Is presenter in destroyed state
+     * @return is destroyed and prepared for GC
+     */
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 
     /**

@@ -1,6 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.getkeepsafe.dexcount'
-apply plugin: 'com.jakewharton.hugo'
 
 android {
 
@@ -24,16 +22,6 @@ android {
 
     dataBinding {
         enabled = true
-    }
-}
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.5'
-        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 

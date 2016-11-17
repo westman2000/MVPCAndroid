@@ -18,18 +18,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
-
-// bintray install and publish script
-apply from: '../bintray.gradle'
 
 dependencies {
 
-    // android framework
-    compile "com.android.support:support-annotations:$supportLibVer"
+    compile project(':mvpc_rx')
 
-    // RxJava
-    compile "io.reactivex:rxjava:$rxjavaLibVer"
-    compile "io.reactivex:rxandroid:$rxandroidLibVer"
+    // android framework
+    compile "com.android.support:support-core-utils:$supportLibVer" // for Loader
+    compile "com.android.support:support-fragment:$supportLibVer" // for LoaderManager
+
 }

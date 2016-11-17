@@ -3,18 +3,17 @@ package corp.wmsoft.android.examples.mvpc;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityMainBinding;
 import corp.wmsoft.android.examples.mvpc.longrunning.LongRunningActivity;
 import corp.wmsoft.android.examples.mvpc.second.SecondActivity;
-import corp.wmsoft.android.lib.mvpcrx.predefined.MVPCAppCompatActivity;
 import corp.wmsoft.android.lib.mvpcrx.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcrx.support.v4.MVPCFragmentActivity;
 
 
-public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
+public class MainActivity extends MVPCFragmentActivity<MainContract.View, MainContract.Presenter> implements MainContract.View {
 
     /**/
     private ActivityMainBinding binding;
@@ -35,8 +34,6 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        setSupportActionBar(binding.toolbar);
     }
 
     @Override
@@ -70,11 +67,6 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    @Override
-    public void showFabEvent() {
-        Snackbar.make(binding.fab, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     @Override

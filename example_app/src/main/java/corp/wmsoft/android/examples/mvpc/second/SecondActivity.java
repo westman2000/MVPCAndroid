@@ -2,17 +2,16 @@ package corp.wmsoft.android.examples.mvpc.second;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.databinding.ActivitySecondBinding;
-import corp.wmsoft.android.lib.mvpcrx.predefined.MVPCAppCompatActivity;
 import corp.wmsoft.android.lib.mvpcrx.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcrx.support.v4.MVPCFragmentActivity;
 
 
-public class SecondActivity extends MVPCAppCompatActivity<SecondContract.View, SecondContract.Presenter> implements SecondContract.View {
+public class SecondActivity extends MVPCFragmentActivity<SecondContract.View, SecondContract.Presenter> implements SecondContract.View {
 
     /**/
     private ActivitySecondBinding binding;
@@ -32,7 +31,6 @@ public class SecondActivity extends MVPCAppCompatActivity<SecondContract.View, S
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_second);
-        setSupportActionBar(binding.toolbar);
     }
 
     @Override
@@ -56,11 +54,6 @@ public class SecondActivity extends MVPCAppCompatActivity<SecondContract.View, S
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void showFabEvent() {
-        Snackbar.make(binding.fab, "Second activity snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
 }

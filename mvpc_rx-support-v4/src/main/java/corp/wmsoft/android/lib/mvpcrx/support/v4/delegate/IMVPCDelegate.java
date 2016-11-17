@@ -1,4 +1,4 @@
-package corp.wmsoft.android.lib.mvpcrx.delegate;
+package corp.wmsoft.android.lib.mvpcrx.support.v4.delegate;
 
 import android.content.Context;
 import android.support.v4.app.LoaderManager;

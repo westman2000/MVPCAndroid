@@ -6,11 +6,11 @@ import android.view.View;
 
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityLongRunningBinding;
-import corp.wmsoft.android.lib.mvpcrx.predefined.MVPCAppCompatActivity;
 import corp.wmsoft.android.lib.mvpcrx.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcrx.support.v4.MVPCFragmentActivity;
 
 
-public class LongRunningActivity extends MVPCAppCompatActivity<LongRunningContract.View, LongRunningContract.Presenter> implements LongRunningContract.View {
+public class LongRunningActivity extends MVPCFragmentActivity<LongRunningContract.View, LongRunningContract.Presenter> implements LongRunningContract.View {
 
     /**/
     private ActivityLongRunningBinding binding;
@@ -30,7 +30,6 @@ public class LongRunningActivity extends MVPCAppCompatActivity<LongRunningContra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_long_running);
-        setSupportActionBar(binding.toolbar);
     }
 
     @Override

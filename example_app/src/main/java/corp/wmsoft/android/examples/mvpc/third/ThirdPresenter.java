@@ -30,7 +30,6 @@ public class ThirdPresenter extends MVPCPresenter<ThirdContract.View> implements
      */
     @Override
     public void onFabClick() {
-        getView().showFabEvent();
     }
 
     /**

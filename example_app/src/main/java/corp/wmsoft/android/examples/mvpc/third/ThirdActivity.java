@@ -2,18 +2,17 @@ package corp.wmsoft.android.examples.mvpc.third;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import corp.wmsoft.android.examples.mvpc.R;
 import corp.wmsoft.android.examples.mvpc.databinding.ActivityThirdBinding;
 import corp.wmsoft.android.examples.mvpc.third.pager.ViewPagerFragment;
-import corp.wmsoft.android.lib.mvpcrx.predefined.MVPCAppCompatActivity;
 import corp.wmsoft.android.lib.mvpcrx.presenter.factory.IMVPCPresenterFactory;
+import corp.wmsoft.android.lib.mvpcrx.support.v4.MVPCFragmentActivity;
 
 
-public class ThirdActivity extends MVPCAppCompatActivity<ThirdContract.View, ThirdContract.Presenter> implements ThirdContract.View {
+public class ThirdActivity extends MVPCFragmentActivity<ThirdContract.View, ThirdContract.Presenter> implements ThirdContract.View {
 
     /**/
     private ActivityThirdBinding binding;
@@ -40,8 +39,6 @@ public class ThirdActivity extends MVPCAppCompatActivity<ThirdContract.View, Thi
                     .replace(R.id.container, ViewPagerFragment.newInstance())
                     .commit();
         }
-
-        setSupportActionBar(binding.toolbar);
     }
 
     @Override
@@ -65,11 +62,6 @@ public class ThirdActivity extends MVPCAppCompatActivity<ThirdContract.View, Thi
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void showFabEvent() {
-        Snackbar.make(binding.fab, "Third activity snackBar", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     @Override

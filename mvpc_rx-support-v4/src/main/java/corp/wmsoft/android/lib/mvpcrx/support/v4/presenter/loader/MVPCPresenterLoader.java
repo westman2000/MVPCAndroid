@@ -1,4 +1,4 @@
-package corp.wmsoft.android.lib.mvpcrx.presenter.loader;
+package corp.wmsoft.android.lib.mvpcrx.support.v4.presenter.loader;
 
 import android.content.Context;
 import android.support.v4.content.Loader;

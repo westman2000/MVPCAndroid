@@ -18,6 +18,5 @@ public class SecondPresenter extends MVPCPresenter<SecondContract.View> implemen
      */
     @Override
     public void onFabClick() {
-        getView().showFabEvent();
     }
 }

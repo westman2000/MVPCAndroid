@@ -11,8 +11,6 @@ public interface MainContract {
 
     interface View extends IMVPCView {
 
-        void showFabEvent();
-
         void showCounter(String count);
 
         void showSecondView();

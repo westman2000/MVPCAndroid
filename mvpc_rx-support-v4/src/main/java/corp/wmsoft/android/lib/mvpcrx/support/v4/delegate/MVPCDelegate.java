@@ -1,4 +1,4 @@
-package corp.wmsoft.android.lib.mvpcrx.delegate;
+package corp.wmsoft.android.lib.mvpcrx.support.v4.delegate;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,9 +7,10 @@ import android.support.v4.content.Loader;
 
 import java.lang.ref.WeakReference;
 
+import corp.wmsoft.android.lib.mvpcrx.delegate.IMVPCDelegate;
 import corp.wmsoft.android.lib.mvpcrx.presenter.IMVPCPresenter;
 import corp.wmsoft.android.lib.mvpcrx.presenter.factory.IMVPCPresenterFactory;
-import corp.wmsoft.android.lib.mvpcrx.presenter.loader.MVPCPresenterLoader;
+import corp.wmsoft.android.lib.mvpcrx.support.v4.presenter.loader.MVPCPresenterLoader;
 import corp.wmsoft.android.lib.mvpcrx.view.IMVPCView;
 
 

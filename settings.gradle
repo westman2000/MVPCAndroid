@@ -1,1 +1,1 @@
-include ':example_app', ':mvpc_rx'
+include ':example_app', ':mvpc_rx', ':mvpc_rx-support-v4'

@@ -30,7 +30,6 @@ public class MainPresenter extends MVPCPresenter<MainContract.View> implements M
      */
     @Override
     public void onFabClick() {
-        getView().showFabEvent();
         mCounter++;
         showCounter();
     }

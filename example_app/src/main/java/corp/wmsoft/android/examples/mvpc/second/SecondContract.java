@@ -11,8 +11,6 @@ public interface SecondContract {
 
     interface View extends IMVPCView {
 
-        void showFabEvent();
-
     }
 
     interface Presenter extends IMVPCPresenter<View> {

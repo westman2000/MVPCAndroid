@@ -26,10 +26,11 @@ android {
 }
 
 dependencies {
-    compile project(path: ':mvpc_rx')
+    compile project(':mvpc_rx-support-v4')
 
     // android widgets
-    compile "com.android.support:design:$supportLibVer"
+    compile "com.android.support:support-core-utils:$supportLibVer" // for Loader
+    compile "com.android.support:support-fragment:$supportLibVer" // for LoaderManager
 
     // RxJava
     compile "io.reactivex:rxjava:$rxjavaLibVer"

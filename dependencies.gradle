@@ -5,10 +5,10 @@ ext {
     minSdkVer        = 9
     targetSdkVer     = 25
 
-    verCode          = 9
-    verName          = "0.0.9"
+    verCode          = 10
+    verName          = "0.0.10"
 
-    supportLibVer    = "25.0.0"
+    supportLibVer    = "25.0.1"
     leakcanaryLibVer = "1.5"
     rxjavaLibVer     = "1.2.2"
     rxandroidLibVer  = "1.2.1"

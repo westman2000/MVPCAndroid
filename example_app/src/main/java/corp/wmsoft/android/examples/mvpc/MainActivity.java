@@ -1,6 +1,6 @@
 package corp.wmsoft.android.examples.mvpc;
 
-import android.content.Intent;
+import  android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -22,7 +22,7 @@ public class MainActivity extends MVPCAppCompatActivity<MainContract.View, MainC
 
     @Override
     public IMVPCPresenterFactory<MainContract.View, MainContract.Presenter> providePresenterFactory() {
-        return new MainPresenterFactory();
+        return new MainPresenter();
     }
 
     @Override

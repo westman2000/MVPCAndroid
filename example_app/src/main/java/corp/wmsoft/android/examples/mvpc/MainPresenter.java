@@ -3,19 +3,20 @@ package corp.wmsoft.android.examples.mvpc;
 import java.util.Locale;
 
 import corp.wmsoft.android.lib.mvpcrx.presenter.MVPCPresenter;
+import corp.wmsoft.android.lib.mvpcrx.presenter.factory.IMVPCPresenterFactory;
 
 
 /**
  * Created by admin on 8/5/16.
  *
  */
-public class MainPresenter extends MVPCPresenter<MainContract.View> implements MainContract.Presenter {
+class MainPresenter extends MVPCPresenter<MainContract.View> implements MainContract.Presenter, IMVPCPresenterFactory<MainContract.View, MainContract.Presenter> {
 
     /**/
     private int mCounter;
 
 
-    public MainPresenter() {
+    MainPresenter() {
         mCounter = 0;
     }
 
@@ -47,5 +48,10 @@ public class MainPresenter extends MVPCPresenter<MainContract.View> implements M
 
     private void showCounter() {
         getView().showCounter(String.format(Locale.getDefault(), "Fab pressed : %d times", mCounter));
+    }
+
+    @Override
+    public MainContract.Presenter create() {
+        return this;
     }
 }

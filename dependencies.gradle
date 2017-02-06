@@ -5,12 +5,12 @@ ext {
     minSdkVer        = 9
     targetSdkVer     = 25
 
-    verCode          = 11
-    verName          = "0.0.11"
+    verCode          = 12
+    verName          = "0.0.12"
 
-    supportLibVer    = "25.0.1"
+    supportLibVer    = "25.1.1"
     leakcanaryLibVer = "1.5"
-    rxjavaLibVer     = "1.2.3"
+    rxjavaLibVer     = "1.2.6"
     rxandroidLibVer  = "1.2.1"
 
     libraryName      = 'MVPC-Rx'
